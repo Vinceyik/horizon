@@ -1,0 +1,37 @@
+{
+  "id": "ai-news",
+  "name": "AI Frontier",
+  "display_names": {
+    "zh": "人工智能前沿",
+    "zh-Hant": "AI 前沿"
+  },
+  "match": "match.md",
+  "analysis": "analysis.md",
+  "content": {
+    "analysis_max_chars": 6000,
+    "enrichment_max_chars": 12000,
+    "sampling": "prefix"
+  },
+  "enrichment": {
+    "prompt": "enrichment.md",
+    "blocks": [
+      {
+        "id": "summary",
+        "type": "section",
+        "tools": [],
+        "primary": true
+      },
+      {
+        "id": "blurb",
+        "type": "section",
+        "tools": []
+      },
+      {
+        "id": "data_points",
+        "type": "section",
+        "tools": [],
+        "optional": true
+      }
+    ]
+  }
+}

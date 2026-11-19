@@ -1,0 +1,37 @@
+{
+  "id": "energy-data",
+  "name": "Natural Gas Data",
+  "display_names": {
+    "zh": "天然气数据",
+    "zh-Hant": "天然氣數據"
+  },
+  "match": "match.md",
+  "analysis": "analysis.md",
+  "content": {
+    "analysis_max_chars": 8000,
+    "enrichment_max_chars": 16000,
+    "sampling": "prefix"
+  },
+  "enrichment": {
+    "prompt": "enrichment.md",
+    "blocks": [
+      {
+        "id": "summary",
+        "type": "section",
+        "tools": [],
+        "primary": true
+      },
+      {
+        "id": "blurb",
+        "type": "section",
+        "tools": []
+      },
+      {
+        "id": "data_points",
+        "type": "section",
+        "tools": [],
+        "optional": true
+      }
+    ]
+  }
+}
