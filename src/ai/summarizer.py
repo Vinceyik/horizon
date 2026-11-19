@@ -47,6 +47,8 @@ def _pangu(text: str) -> str:
     return text
 
 
+_ZH_LANGUAGES = {"zh", "zh-Hant"}
+
 LABELS = {
     "en": {
         "header": "Horizon Daily",
@@ -86,6 +88,26 @@ LABELS = {
             "1. 降低当前 Profile 的过滤阈值\n"
             "2. 添加更多多样化的信息源\n"
             "3. 检查 AI 模型是否正常工作\n"
+        ),
+    },
+    "zh-Hant": {
+        "header": "Horizon 每日速遞",
+        "source": "來源",
+        "background": "背景",
+        "discussion": "社群討論",
+        "references": "參考連結",
+        "tags": "標籤",
+        "selected_items": "從 {total} 條內容中篩選出 {selected} 條重要資訊。",
+        "empty_analyzed": "已分析 {total} 條內容，但沒有達到重要性閾值的條目。",
+        "empty_body": (
+            "今日暫無重要動態，可能原因：\n"
+            "- 今天關注的資訊源較平靜\n"
+            "- AI 評分閾值設定過高\n"
+            "- 資訊源種類有待擴充\n\n"
+            "建議：\n"
+            "1. 降低目前 Profile 的過濾閾值\n"
+            "2. 加入更多元化的資訊源\n"
+            "3. 檢查 AI 模型是否正常運作\n"
         ),
     },
 }
@@ -243,12 +265,12 @@ class DailySummarizer:
         view = self.build_view(items, language)
         for group in view.groups:
             profile_name = _escape_markdown(group.name)
-            if language == "zh":
+            if language in _ZH_LANGUAGES:
                 profile_name = _pangu(profile_name)
             toc_entries = [f"**{profile_name}**"]
             for view_item in group.items:
                 title = _escape_markdown(view_item.title)
-                if language == "zh":
+                if language in _ZH_LANGUAGES:
                     title = _pangu(title)
                 toc_entries.append(
                     f"{view_item.index}. [{title}](#{view_item.anchor_id}) "
@@ -285,7 +307,7 @@ class DailySummarizer:
         if not items:
             return self._generate_empty_summary(date, total_fetched, labels)
 
-        if language == "zh":
+        if language in _ZH_LANGUAGES:
             header = (
                 f"# {labels['header']} - {date}\n\n"
                 f"> 从 {total_fetched} 条内容中筛选出 {len(items)} 条重要资讯。\n\n"
@@ -302,12 +324,12 @@ class DailySummarizer:
         view = self.build_view(items, language)
         for group in view.groups:
             profile_name = _escape_markdown(group.name)
-            if language == "zh":
+            if language in _ZH_LANGUAGES:
                 profile_name = _pangu(profile_name)
             entries = [f"**{profile_name}**"]
             for view_item in group.items:
                 title = _escape_markdown(view_item.title)
-                if language == "zh":
+                if language in _ZH_LANGUAGES:
                     title = _pangu(title)
                 url = _safe_url(view_item.item.url)
                 title_link = f"[{title}]({url})" if url else title
@@ -331,7 +353,7 @@ class DailySummarizer:
     ) -> str:
         """Generate one item message for multi-message webhook delivery."""
         labels = LABELS.get(language, LABELS["en"])
-        prefix = f"第 {index}/{total} 条\n\n" if language == "zh" else f"Item {index}/{total}\n\n"
+        prefix = f"第 {index}/{total} 条\n\n" if language in _ZH_LANGUAGES else f"Item {index}/{total}\n\n"
         return normalize_language(
             prefix
             + self._format_item(
@@ -385,7 +407,7 @@ class DailySummarizer:
             _escape_markdown(primary_block.content) if primary_block else ""
         )
 
-        if language == "zh":
+        if language in _ZH_LANGUAGES:
             title = _pangu(title)
             summary = _pangu(summary)
             primary_content = _pangu(primary_content)
@@ -400,7 +422,7 @@ class DailySummarizer:
         else:
             source_parts.append(_escape_markdown(item.author or "unknown"))
         if item.published_at:
-            if language == "zh":
+            if language in _ZH_LANGUAGES:
                 source_parts.append(
                     f"{item.published_at.month}月{item.published_at.day}日 "
                     f"{item.published_at:%H:%M}"
@@ -434,7 +456,7 @@ class DailySummarizer:
                     continue
                 block_title = _escape_markdown(block.title)
                 block_content = _escape_markdown(block.content)
-                if language == "zh":
+                if language in _ZH_LANGUAGES:
                     block_title = _pangu(block_title)
                     block_content = _pangu(block_content)
                 lines.extend(["", f"**「{block_title}」** {block_content}"])

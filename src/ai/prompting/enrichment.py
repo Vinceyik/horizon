@@ -18,8 +18,14 @@ GROUNDING_RULES = f"""- Treat the source item as the primary account of what hap
 
 
 def target_language_instruction(language: str) -> str:
-    if language.lower() == "zh":
+    normalized = language.lower()
+    if normalized == "zh":
         return "Simplified Chinese (language tag `zh`)"
+    if normalized == "zh-hant":
+        return (
+            "Traditional Chinese (Hong Kong) (language tag `zh-Hant`); "
+            "use Hong Kong financial terminology and never output Simplified Chinese characters"
+        )
     return f"language `{language}`"
 
 
