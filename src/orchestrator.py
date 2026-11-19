@@ -1,6 +1,7 @@
 """Main orchestrator coordinating the entire workflow."""
 
 import asyncio
+import os
 from collections import defaultdict
 from dataclasses import dataclass, field
 from datetime import datetime, timedelta, timezone
@@ -38,6 +39,9 @@ from .ai.tokens import get_usage_snapshot
 from .processing import ProfileRegistry
 from .processing.content import COMMENTS_MARKER, split_content
 from .processing.tools import ToolRegistry
+from .site.overview import generate_group_overviews
+from .site.publish import (build_payload, group_failure_map, item_group_id,
+                           profile_to_group_map, site_groups, write_payload)
 
 
 _TRACKING_QUERY_PARAMETERS = {
@@ -278,6 +282,9 @@ class HorizonOrchestrator:
 
             if not all_items:
                 self.console.print("[yellow]No new content found. Exiting.[/yellow]")
+                await self._publish_site(
+                    [], total_fetched=0, report=self.last_fetch_report
+                )
                 return
 
             # 3. Merge cross-source duplicates (same URL from different sources)
@@ -400,6 +407,12 @@ class HorizonOrchestrator:
                 if self.wechat_notifier:
                     await self.wechat_notifier.send_daily_summary(summary, lang)
 
+            await self._publish_site(
+                important_items,
+                total_fetched=len(all_items),
+                report=self.last_fetch_report,
+            )
+
             self.console.print(
                 f"[bold green]{self.icons['success']} "
                 "Horizon completed successfully![/bold green]"
@@ -437,6 +450,79 @@ class HorizonOrchestrator:
                 )
 
             raise
+
+    async def _publish_site(
+        self,
+        items: List[ContentItem],
+        *,
+        total_fetched: int,
+        report: Optional["FetchReport"],
+        overviews: Optional[Dict[str, str]] = None,
+        groups: Optional[List[tuple[str, str, List[str]]]] = None,
+        language: Optional[str] = None,
+    ) -> None:
+        """Write web/data.json and its dated archive for GitHub Pages."""
+        ai_config = getattr(self.config, "ai", None)
+        digest_config = getattr(self.config, "digest", None)
+        if ai_config is None or digest_config is None or not getattr(ai_config, "languages", None):
+            # Unit-test doubles build a partial config; a real Config always
+            # carries both sections, so publishing only skips for test stubs.
+            return
+        language = language or ai_config.languages[0]
+        group_defs = groups if groups is not None else site_groups(self.config, items)
+
+        if overviews is None:
+            profile_map = profile_to_group_map(self.config)
+            buckets: Dict[str, List[ContentItem]] = {
+                group_id: [] for group_id, _name, _profiles in group_defs
+            }
+            for item in items:
+                group_id = item_group_id(item, profile_map, "other")
+                if group_id in buckets:
+                    buckets[group_id].append(item)
+            try:
+                overviews = await generate_group_overviews(
+                    self.ai_client,
+                    [
+                        (group_id, name, buckets[group_id])
+                        for group_id, name, _profiles in group_defs
+                    ],
+                    language,
+                )
+            except Exception as exc:
+                self.console.print(
+                    f"[yellow]Could not generate section overviews: {exc}[/yellow]"
+                )
+                overviews = {}
+
+        failed_sources = {
+            outcome.source_name
+            for outcome in (report.outcomes if report else [])
+            if outcome.status in {"failure", "partial_failure"}
+        }
+        failures = [
+            {"source": outcome.source_name, "reason": outcome.error or "unknown error"}
+            for outcome in (report.outcomes if report else [])
+            if outcome.status in {"failure", "partial_failure"}
+        ]
+
+        payload = build_payload(
+            items=items,
+            groups=group_defs,
+            overviews=overviews,
+            failures=failures,
+            group_failed=group_failure_map(self.config, failed_sources),
+            total_fetched=total_fetched,
+            language=language,
+            now=datetime.now(timezone.utc),
+        )
+        latest, archive = write_payload(
+            payload, Path(os.environ.get("HORIZON_SITE_DIR", "web"))
+        )
+        self.console.print(
+            f"{self.icons['document']} Published {payload.selected} items to "
+            f"{latest} (archive: {archive})\n"
+        )
 
     def _determine_time_window(self, force_hours: Optional[int] = None) -> datetime:
         hours = force_hours if force_hours is not None else self.config.collection.time_window_hours

@@ -171,6 +171,50 @@ def build_payload(
     )
 
 
+def profile_to_group_map(config) -> dict[str, str]:
+    """Map every profile id to the briefing group that owns it."""
+    mapping: dict[str, str] = {}
+    for group_id, group in config.digest.category_groups.items():
+        for profile in group.categories:
+            mapping[profile] = group_id
+    return mapping
+
+
+def site_groups(config, items=None) -> list[tuple[str, str, list[str]]]:
+    """Return the configured groups as (id, tab name, profile ids).
+
+    ``items`` is accepted for call-site symmetry with the orchestrator; the
+    grouping itself comes entirely from config.
+    """
+    return [
+        (group_id, group.name or group_id, list(group.categories))
+        for group_id, group in config.digest.category_groups.items()
+    ]
+
+
+def group_failure_map(config, failed_sources) -> dict[str, bool]:
+    """Mark groups whose feeds all failed.
+
+    Every RSS feed is fetched as one ``RSS Feeds`` scraper, so per-feed
+    outcomes are not available. When that scrape fails outright, every group
+    fed only by RSS is reported as failed rather than merely empty.
+    """
+    failed_sources = set(failed_sources)
+    if "RSS Feeds" not in failed_sources:
+        return {}
+    profile_to_group = profile_to_group_map(config)
+    result: dict[str, bool] = {}
+    for feed in config.sources.rss:
+        if not feed.enabled or not isinstance(feed.profile, str):
+            continue
+        if feed.profile == "auto":
+            continue
+        group_id = profile_to_group.get(feed.profile)
+        if group_id:
+            result[group_id] = True
+    return result
+
+
 def write_payload(payload: SitePayload, web_dir: Path) -> tuple[Path, Path]:
     """Write the latest payload and its dated archive copy."""
     web_dir = Path(web_dir)
