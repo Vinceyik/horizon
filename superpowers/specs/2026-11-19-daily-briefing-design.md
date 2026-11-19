@@ -60,8 +60,8 @@ Failures even if the site technically renders:
 | Base repo | Fork of `Thysrael/Horizon`, branch `personal/briefing` |
 | Config format | Horizon's `data/config.json` (JSON). No YAML loader. |
 | Config in git | `data/config.personal.json` committed; workflow copies it to the gitignored `data/config.json` |
-| Digest grouping | `digest.group_by: "category"`; group ids are `fashion` / `ai` / `natgas` |
-| Category ↔ profile | Every source is pinned explicitly; profile ids equal category ids (`fashion`, `ai-news` → category `ai`, `energy-data` → category `natgas`) |
+| Digest grouping | `digest.group_by: "profile"`; group ids are `fashion` / `ai` / `natgas`, each group's `categories` lists the profile ids it contains |
+| Source → group | Every source is pinned to one profile: `fashion` → `fashion`, `ai-news` → `ai`, `energy-data` → `natgas`. No source is left `auto`. (Category grouping was rejected: Hacker News and GitHub scrapers do not set `metadata["category"]`, so they would fall into `other`.) |
 | Tab names | `digest.category_groups.<id>.name` holds the Chinese label (single string; the site is zh-Hant only, so no per-language map is needed) |
 | Editorial units | Three new profiles: `fashion`, `ai-news`, `energy-data` |
 | Output language | `zh-Hant` only (English off) |
@@ -329,7 +329,7 @@ Note: `data/summaries/*.md` and `docs/_posts/*.md` remain gitignored; the `gh-pa
 The seven questions raised by the design review, and how this document settles them:
 
 1. **State across the publisher boundary** — publish in-process at the end of `HorizonOrchestrator.run()`; no intermediate file, one workflow step, one secret. Overviews also live in the run (orchestrator), because `DailySummarizer` has no client.
-2. **Category vs profile grouping** — `group_by: "category"`, ids `fashion`/`ai`/`natgas`, every source pinned. Chinese tab names live in `category_groups.<id>.name`.
+2. **Category vs profile grouping** — `group_by: "profile"` (not `category`: HN and GitHub items carry no category), ids `fashion`/`ai`/`natgas`, every source pinned. Chinese tab names live in `category_groups.<id>.name`.
 3. **Google News** — two plain `sources.rss` entries; redirect links and the 48 h query window accepted, dedup by URL.
 4. **Archive semantics** — one file per run date, no bucketing, no backfill; `--hours` only changes how much a single run looks back.
 5. **`data_points`** — optional block; items survive without numbers; UI hides an empty list.
