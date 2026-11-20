@@ -78,8 +78,8 @@
   ],
   "failures": [
     {
-      "source": "Twitter",
-      "reason": "APIFY_TOKEN missing"
+      "source": "Natural Gas Intelligence",
+      "reason": "HTTP 503"
     }
   ]
 }

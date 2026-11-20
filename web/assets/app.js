@@ -23,12 +23,14 @@ function safeUrl(value) {
 
 /* ---------- theme ---------- */
 
-function applyTheme(theme) {
+function applyTheme(theme, persist) {
   document.documentElement.dataset.theme = theme;
-  try {
-    localStorage.setItem(THEME_KEY, theme);
-  } catch (err) {
-    /* storage disabled */
+  if (persist) {
+    try {
+      localStorage.setItem(THEME_KEY, theme);
+    } catch (err) {
+      /* storage disabled */
+    }
   }
   const button = byId('theme-toggle');
   if (!button) return;
@@ -45,11 +47,16 @@ function initTheme() {
   }
   const prefersDark =
     window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-  applyTheme(stored || (prefersDark ? 'dark' : 'light'));
+  // The OS preference is followed until the reader makes an explicit choice,
+  // so a later system change still applies.
+  applyTheme(stored || (prefersDark ? 'dark' : 'light'), false);
   const button = byId('theme-toggle');
   if (button) {
     button.addEventListener('click', () => {
-      applyTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark');
+      applyTheme(
+        document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark',
+        true
+      );
     });
   }
 }
@@ -253,7 +260,7 @@ function errorState() {
 
 async function probeArchive() {
   const days = [];
-  for (let i = 0; i < 14; i += 1) days.push(hkDay(i));
+  for (let i = 0; i < 30; i += 1) days.push(hkDay(i));
   const results = await Promise.all(
     days.map(async (day) => {
       try {

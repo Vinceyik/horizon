@@ -93,6 +93,51 @@ def test_simplified_text_is_converted_before_publishing():
     assert site_item.blurb == "庫存下降"
 
 
+def test_original_title_is_converted_too():
+    item = make_item()
+    item.title = "这个国家发电数据"
+    site_item = item_to_site_item(item, "zh-Hant")
+    assert site_item.original_title == "這個國家發電數據"
+
+
+def test_overview_is_converted_at_the_payload_boundary():
+    payload = build_payload(
+        items=[],
+        groups=[("fashion", "時尚與精品", ["fashion"])],
+        overviews={"fashion": "这个国家发电数据"},
+        failures=[],
+        group_failed={},
+        total_fetched=0,
+        language="zh-Hant",
+        now=datetime(2026, 11, 19, 0, 0, tzinfo=timezone.utc),
+    )
+    assert payload.groups[0].overview == "這個國家發電數據"
+
+
+def test_items_outside_configured_groups_are_not_published_or_counted():
+    payload = build_payload(
+        items=[make_item(), make_item(profile="tech-news")],
+        groups=[("fashion", "時尚與精品", ["fashion"])],
+        overviews={},
+        failures=[],
+        group_failed={},
+        total_fetched=2,
+        language="zh-Hant",
+        now=datetime(2026, 11, 19, 0, 0, tzinfo=timezone.utc),
+    )
+    assert payload.selected == 1
+
+
+def test_write_payload_creates_missing_directories(tmp_path: Path):
+    payload = build_payload(
+        items=[], groups=[("fashion", "時尚與精品", ["fashion"])], overviews={},
+        failures=[], group_failed={}, total_fetched=0, language="zh-Hant",
+        now=datetime(2026, 11, 19, 0, 0, tzinfo=timezone.utc),
+    )
+    latest, archive = write_payload(payload, tmp_path / "deep" / "web")
+    assert latest.exists() and archive.exists()
+
+
 def test_build_payload_emits_all_groups_even_when_empty():
     payload = build_payload(
         items=[make_item()],

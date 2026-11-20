@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+﻿from datetime import datetime, timezone
 
 from src.site.publish import (build_payload, group_failure_map, profile_to_group_map,
                               site_groups)
@@ -62,7 +62,7 @@ def test_site_groups_keeps_config_order_and_names():
         "fashion": FakeGroup("時尚與精品", ["fashion"]),
         "ai": FakeGroup("", ["ai-news"]),
     })
-    groups = site_groups(config, [])
+    groups = site_groups(config)
     assert [g[0] for g in groups] == ["fashion", "ai"]
     assert groups[1][1] == "ai"
 
@@ -94,7 +94,7 @@ def test_group_failure_map_counts_hacker_news_and_github():
 def test_empty_run_still_publishes_three_groups():
     config = FakeConfig(three_groups())
     payload = build_payload(
-        items=[], groups=site_groups(config, []), overviews={}, failures=[],
+        items=[], groups=site_groups(config), overviews={}, failures=[],
         group_failed={}, total_fetched=0, language="zh-Hant",
         now=datetime(2026, 11, 19, 0, 0, tzinfo=timezone.utc),
     )

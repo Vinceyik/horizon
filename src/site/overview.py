@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import asyncio
 import logging
 from typing import Optional
 
@@ -9,6 +10,8 @@ from ..ai.localization import normalize_language
 from ..models import ContentItem
 
 logger = logging.getLogger(__name__)
+
+_sleep = asyncio.sleep
 
 MAX_OVERVIEW_CHARS = 120
 MAX_ITEMS_IN_PROMPT = 12
@@ -64,14 +67,19 @@ async def generate_group_overviews(
     client,
     groups: list[tuple[str, str, list[ContentItem]]],
     language: str,
+    throttle_sec: float = 0.0,
 ) -> dict[str, str]:
     """Return one 2-3 sentence overview per group, empty string on failure."""
     overviews: dict[str, str] = {}
+    calls = 0
     for group_id, name, items in groups:
         if not items:
             overviews[group_id] = ""
             continue
         try:
+            if calls and throttle_sec > 0:
+                await _sleep(throttle_sec)
+            calls += 1
             reply: Optional[str] = await client.complete(
                 system=SYSTEM_PROMPT,
                 user=_build_user_prompt(name, items, language),
