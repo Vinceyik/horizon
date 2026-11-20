@@ -22,6 +22,10 @@ Repository → Settings → Secrets and variables → Actions → New repository
 | `OPENAI_API_KEY` | one of these | An OpenAI-compatible key. The default config points at OpenRouter (`https://openrouter.ai/api/v1`), so an [OpenRouter](https://openrouter.ai/keys) key is the intended value. |
 | `GOOGLE_API_KEY` | one of these | A Gemini key. Only useful if Gemini accepts your region; Hong Kong is not on Google's supported-region list as of 2026-11. |
 | `APIFY_TOKEN` | no | Only needed if you enable `sources.twitter` in `data/config.personal.json`. |
+| `DEEPSEEK_API_KEY` | no | Needed only if you switch the `ai` block to DeepSeek. The workflow already exports it. |
+| `ANTHROPIC_API_KEY` | no | Needed only if you switch the `ai` block to Anthropic. |
+
+The workflow exports every name in this table, so switching provider is the three config fields below plus the matching secret.
 
 `GITHUB_TOKEN` is provided by Actions; do not add it.
 
@@ -37,6 +41,8 @@ Do not choose "GitHub Actions". The workflow publishes to the `gh-pages` branch 
 The first deploy creates `gh-pages`; until then the Pages settings page may show nothing to select.
 
 ## 4. First run
+
+**The workflow must exist on the default branch.** GitHub only lists a `workflow_dispatch` workflow and only runs its schedule when the workflow file is on `main`. Merge `personal/briefing` into `main` first.
 
 Actions → **Daily Briefing** → Run workflow → leave `hours` at `26`.
 

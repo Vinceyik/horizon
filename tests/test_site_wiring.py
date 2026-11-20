@@ -23,15 +23,23 @@ class FakeFeed:
         self.enabled = enabled
 
 
+class FakeScraperSource:
+    def __init__(self, profile, enabled=True):
+        self.profile = profile
+        self.enabled = enabled
+
+
 class FakeSources:
-    def __init__(self, rss):
+    def __init__(self, rss, hackernews=None, github=None):
         self.rss = rss
+        self.hackernews = hackernews
+        self.github = github or []
 
 
 class FakeConfig:
-    def __init__(self, groups, rss=None):
+    def __init__(self, groups, rss=None, hackernews=None, github=None):
         self.digest = FakeDigest(groups)
-        self.sources = FakeSources(rss or [])
+        self.sources = FakeSources(rss or [], hackernews, github)
 
 
 def three_groups():
@@ -59,17 +67,28 @@ def test_site_groups_keeps_config_order_and_names():
     assert groups[1][1] == "ai"
 
 
-def test_group_failure_map_marks_rss_groups_when_rss_failed():
+def test_group_failure_map_marks_only_groups_whose_feeds_all_failed():
     config = FakeConfig(three_groups(), rss=[
         FakeFeed("Hodinkee", "fashion"),
+        FakeFeed("Vogue", "fashion"),
         FakeFeed("NGI", "energy-data"),
-        FakeFeed("OpenAI", "ai-news"),
-        FakeFeed("Disabled", "ai-news", enabled=False),
+        FakeFeed("Disabled", "fashion", enabled=False),
     ])
-    assert group_failure_map(config, {"RSS Feeds"}) == {
-        "fashion": True, "ai": True, "natgas": True,
-    }
-    assert group_failure_map(config, set()) == {}
+    assert group_failure_map(config, {"Hodinkee"}, set()) == {}
+    assert group_failure_map(config, {"Hodinkee", "Vogue"}, set()) == {"fashion": True}
+    assert group_failure_map(config, {"NGI"}, set()) == {"natgas": True}
+    assert group_failure_map(config, set(), set()) == {}
+
+
+def test_group_failure_map_counts_hacker_news_and_github():
+    config = FakeConfig(
+        three_groups(),
+        rss=[FakeFeed("Hodinkee", "fashion")],
+        hackernews=FakeScraperSource("ai-news"),
+        github=[FakeScraperSource("ai-news")],
+    )
+    assert group_failure_map(config, set(), {"Hacker News"}) == {}
+    assert group_failure_map(config, set(), {"Hacker News", "GitHub"}) == {"ai": True}
 
 
 def test_empty_run_still_publishes_three_groups():

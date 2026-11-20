@@ -469,6 +469,16 @@ class HorizonOrchestrator:
             # carries both sections, so publishing only skips for test stubs.
             return
         language = language or ai_config.languages[0]
+
+        # Spec §17: an item whose enrichment failed for this language is
+        # dropped from the page rather than published in the source language.
+        if items:
+            items = [
+                item
+                for item in items
+                if item.processing and language in item.processing.artifacts
+            ]
+
         group_defs = groups if groups is not None else site_groups(self.config, items)
 
         if overviews is None:
@@ -495,23 +505,31 @@ class HorizonOrchestrator:
                 )
                 overviews = {}
 
-        failed_sources = {
-            outcome.source_name
-            for outcome in (report.outcomes if report else [])
-            if outcome.status in {"failure", "partial_failure"}
-        }
-        failures = [
-            {"source": outcome.source_name, "reason": outcome.error or "unknown error"}
-            for outcome in (report.outcomes if report else [])
-            if outcome.status in {"failure", "partial_failure"}
-        ]
+        failed_feeds: set[str] = set()
+        failed_scrapers: set[str] = set()
+        failures: list[dict] = []
+        for outcome in (report.outcomes if report else []):
+            if outcome.status in {"success", "empty"}:
+                continue
+            failures.append(
+                {"source": outcome.source_name, "reason": outcome.error or "unknown error"}
+            )
+            failed_feeds.update(getattr(outcome, "failures", None) or {})
+            if outcome.status == "failure":
+                failed_scrapers.add(outcome.source_name)
+                if outcome.source_name == "RSS Feeds":
+                    failed_feeds.update(
+                        feed.name for feed in self.config.sources.rss if feed.enabled
+                    )
 
         payload = build_payload(
             items=items,
             groups=group_defs,
             overviews=overviews,
             failures=failures,
-            group_failed=group_failure_map(self.config, failed_sources),
+            group_failed=group_failure_map(
+                self.config, failed_feeds, failed_scrapers
+            ),
             total_fetched=total_fetched,
             language=language,
             now=datetime.now(timezone.utc),

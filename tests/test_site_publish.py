@@ -59,6 +59,14 @@ def test_parse_data_points_strips_bullets_and_blanks():
     assert parse_data_points(content) == ["庫存 +52 BCF（vs 五年均值 +18）", "出口 15.1 Bcf/d"]
 
 
+def test_parse_data_points_keeps_a_leading_negative_number():
+    content = "-52 BCF（市場預期 -60）\n- 出口 15.1 Bcf/d"
+    assert parse_data_points(content) == [
+        "-52 BCF（市場預期 -60）",
+        "出口 15.1 Bcf/d",
+    ]
+
+
 def test_item_without_blurb_still_builds():
     item = make_item(blocks=[ContentBlock(id="summary", title="摘要", content="完整摘要", primary=True)])
     site_item = item_to_site_item(item, "zh-Hant")

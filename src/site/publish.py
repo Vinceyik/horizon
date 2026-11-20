@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import re
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Iterable, Optional
@@ -24,6 +25,8 @@ GROUP_NOTES: dict[str, Optional[str]] = {
 }
 
 SOURCE_LABEL_KEYS = ("feed_name", "channel", "subreddit", "username", "source_name")
+
+_BULLET_PREFIX = re.compile(r"^\s*[-*\u2022]\s+")
 
 
 def item_group_id(
@@ -52,7 +55,9 @@ def parse_data_points(content: str) -> list[str]:
     """Turn a Markdown bullet block into a list of short data lines."""
     points: list[str] = []
     for raw in (content or "").splitlines():
-        line = raw.strip().lstrip("-*\u2022").strip()
+        # Strip only a bullet marker followed by whitespace, so a leading
+        # minus sign that belongs to the number survives.
+        line = _BULLET_PREFIX.sub("", raw).strip()
         if line:
             points.append(line)
     return points
@@ -192,25 +197,63 @@ def site_groups(config, items=None) -> list[tuple[str, str, list[str]]]:
     ]
 
 
-def group_failure_map(config, failed_sources) -> dict[str, bool]:
-    """Mark groups whose feeds all failed.
+def _sources_by_group(config) -> dict[str, list[tuple[str, str]]]:
+    """Map each group to the sources that feed it, as (kind, label) pairs."""
+    mapping = profile_to_group_map(config)
+    sources: dict[str, list[tuple[str, str]]] = {}
 
-    Every RSS feed is fetched as one ``RSS Feeds`` scraper, so per-feed
-    outcomes are not available. When that scrape fails outright, every group
-    fed only by RSS is reported as failed rather than merely empty.
-    """
-    failed_sources = set(failed_sources)
-    if "RSS Feeds" not in failed_sources:
-        return {}
-    profile_to_group = profile_to_group_map(config)
-    result: dict[str, bool] = {}
-    for feed in config.sources.rss:
-        if not feed.enabled or not isinstance(feed.profile, str):
+    def add(group_id: str, kind: str, label: str) -> None:
+        bucket = sources.setdefault(group_id, [])
+        entry = (kind, label)
+        if entry not in bucket:
+            bucket.append(entry)
+
+    for feed in getattr(config.sources, "rss", None) or []:
+        profile = getattr(feed, "profile", None)
+        if not feed.enabled or not isinstance(profile, str) or profile == "auto":
             continue
-        if feed.profile == "auto":
-            continue
-        group_id = profile_to_group.get(feed.profile)
+        group_id = mapping.get(profile)
         if group_id:
+            add(group_id, "feed", feed.name)
+
+    hackernews = getattr(config.sources, "hackernews", None)
+    if hackernews is not None and getattr(hackernews, "enabled", False):
+        profile = getattr(hackernews, "profile", None)
+        if isinstance(profile, str) and profile != "auto":
+            group_id = mapping.get(profile)
+            if group_id:
+                add(group_id, "scraper", "Hacker News")
+
+    for source in getattr(config.sources, "github", None) or []:
+        if not getattr(source, "enabled", False):
+            continue
+        profile = getattr(source, "profile", None)
+        if isinstance(profile, str) and profile != "auto":
+            group_id = mapping.get(profile)
+            if group_id:
+                add(group_id, "scraper", "GitHub")
+
+    return sources
+
+
+def group_failure_map(config, failed_feeds=(), failed_scrapers=()) -> dict[str, bool]:
+    """Mark a group failed only when every source feeding it failed.
+
+    ``failed_feeds`` holds RSS feed names; ``failed_scrapers`` holds scraper
+    labels such as ``Hacker News`` or ``GitHub``. A group with at least one
+    source that is not in either set is merely empty, not failed.
+    """
+    failed_feeds = set(failed_feeds)
+    failed_scrapers = set(failed_scrapers)
+    result: dict[str, bool] = {}
+    for group_id, sources in _sources_by_group(config).items():
+        if not sources:
+            continue
+        all_failed = all(
+            (label in failed_feeds) if kind == "feed" else (label in failed_scrapers)
+            for kind, label in sources
+        )
+        if all_failed:
             result[group_id] = True
     return result
 

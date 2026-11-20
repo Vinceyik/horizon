@@ -23,6 +23,18 @@ def test_daily_workflow_uses_personal_config():
     assert "cp data/config.personal.json data/config.json" in text
 
 
+def test_daily_workflow_exports_every_documented_provider_key():
+    text = WORKFLOW.read_text(encoding="utf-8")
+    for name in ("OPENAI_API_KEY", "GOOGLE_API_KEY", "DEEPSEEK_API_KEY", "ANTHROPIC_API_KEY"):
+        assert "secrets." + name in text
+
+
+def test_daily_workflow_passes_hours_through_an_env_var():
+    text = WORKFLOW.read_text(encoding="utf-8")
+    assert 'HOURS: ${{ github.event.inputs.hours }}' in text
+    assert '--hours "${HOURS:-26}"' in text
+
+
 def test_docs_deploy_workflow_is_disabled():
     assert not Path(".github/workflows/deploy-docs.yml").exists()
     assert Path(".github/workflows/deploy-docs.yml.disabled").exists()
