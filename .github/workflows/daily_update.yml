@@ -1,0 +1,60 @@
+name: Daily Briefing
+
+on:
+  schedule:
+    # 08:00 Asia/Hong_Kong (UTC+8). GitHub schedules are best-effort and may
+    # start 5-30 minutes late; the 26-hour lookback absorbs the drift.
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+    inputs:
+      hours:
+        description: 'Lookback hours'
+        default: '26'
+
+concurrency:
+  group: daily-briefing
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  briefing:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+
+      - name: Install dependencies
+        run: uv sync
+
+      - name: Use personal config
+        run: cp data/config.personal.json data/config.json
+
+      - name: Run Horizon
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          APIFY_TOKEN: ${{ secrets.APIFY_TOKEN }}
+          HOURS: ${{ github.event.inputs.hours }}
+        run: uv run horizon --hours "${HOURS:-26}"
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./web
+          keep_files: true
+          publish_branch: gh-pages
+          enable_jekyll: false
+          commit_message: "briefing: ${{ github.run_id }}"

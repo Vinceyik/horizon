@@ -1,0 +1,37 @@
+{
+  "id": "fashion",
+  "name": "Fashion & Watches",
+  "display_names": {
+    "zh": "时尚与精品",
+    "zh-Hant": "時尚與精品"
+  },
+  "match": "match.md",
+  "analysis": "analysis.md",
+  "content": {
+    "analysis_max_chars": 6000,
+    "enrichment_max_chars": 12000,
+    "sampling": "prefix"
+  },
+  "enrichment": {
+    "prompt": "enrichment.md",
+    "blocks": [
+      {
+        "id": "summary",
+        "type": "section",
+        "tools": [],
+        "primary": true
+      },
+      {
+        "id": "blurb",
+        "type": "section",
+        "tools": []
+      },
+      {
+        "id": "data_points",
+        "type": "section",
+        "tools": [],
+        "optional": true
+      }
+    ]
+  }
+}

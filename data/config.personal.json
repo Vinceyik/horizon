@@ -1,0 +1,199 @@
+{
+  "ai": {
+    "provider": "openai",
+    "model": "gpt-4o-mini",
+    "base_url": "https://openrouter.ai/api/v1",
+    "api_key_env": "OPENAI_API_KEY",
+    "temperature": 0.3,
+    "max_tokens": 8192,
+    "throttle_sec": 0.5,
+    "languages": [
+      "zh-Hant"
+    ],
+    "analysis_concurrency": 3,
+    "enrichment_concurrency": 3
+  },
+  "processing": {
+    "profiles_dir": "profiles",
+    "default_profile": "ai-news",
+    "profile_settings": {
+      "fashion": {
+        "threshold": 6.5,
+        "topic_dedup": true
+      },
+      "ai-news": {
+        "threshold": 6.5,
+        "topic_dedup": true
+      },
+      "energy-data": {
+        "threshold": 5.5,
+        "topic_dedup": true
+      }
+    }
+  },
+  "display": {
+    "icon_style": "emoji"
+  },
+  "sources": {
+    "github": [
+      {
+        "type": "repo_releases",
+        "owner": "vllm-project",
+        "repo": "vllm",
+        "enabled": true,
+        "profile": "ai-news"
+      },
+      {
+        "type": "repo_releases",
+        "owner": "sgl-project",
+        "repo": "sglang",
+        "enabled": true,
+        "profile": "ai-news"
+      }
+    ],
+    "hackernews": {
+      "enabled": true,
+      "fetch_top_stories": 30,
+      "min_score": 150,
+      "profile": "ai-news"
+    },
+    "rss": [
+      {
+        "name": "Hodinkee",
+        "url": "https://www.hodinkee.com/articles.rss",
+        "enabled": true,
+        "category": "fashion",
+        "content_extractor": "trafilatura",
+        "profile": "fashion"
+      },
+      {
+        "name": "Hypebeast",
+        "url": "https://hypebeast.com/feed",
+        "enabled": true,
+        "category": "fashion",
+        "content_extractor": "trafilatura",
+        "profile": "fashion"
+      },
+      {
+        "name": "Vogue",
+        "url": "https://www.vogue.com/feed/rss",
+        "enabled": true,
+        "category": "fashion",
+        "content_extractor": "trafilatura",
+        "profile": "fashion"
+      },
+      {
+        "name": "OpenAI Blog",
+        "url": "https://openai.com/blog/rss.xml",
+        "enabled": true,
+        "category": "ai",
+        "content_extractor": "trafilatura",
+        "profile": "ai-news"
+      },
+      {
+        "name": "Hugging Face Blog",
+        "url": "https://huggingface.co/blog/feed.xml",
+        "enabled": true,
+        "category": "ai",
+        "content_extractor": "trafilatura",
+        "profile": "ai-news"
+      },
+      {
+        "name": "Anthropic News (Google News)",
+        "url": "https://news.google.com/rss/search?q=Anthropic+when:2d&hl=en-US&gl=US&ceid=US:en",
+        "enabled": true,
+        "category": "ai",
+        "profile": "ai-news"
+      },
+      {
+        "name": "GitHub Trending",
+        "url": "https://mshibanami.github.io/GitHubTrendingRSS/daily/all.xml",
+        "enabled": true,
+        "category": "ai",
+        "profile": "ai-news"
+      },
+      {
+        "name": "Natural Gas Intelligence",
+        "url": "https://www.naturalgasintel.com/feed/",
+        "enabled": true,
+        "category": "natgas",
+        "content_extractor": "trafilatura",
+        "profile": "energy-data"
+      },
+      {
+        "name": "OilPrice.com",
+        "url": "https://oilprice.com/rss/main",
+        "enabled": true,
+        "category": "natgas",
+        "content_extractor": "trafilatura",
+        "profile": "energy-data"
+      },
+      {
+        "name": "EIA Today in Energy",
+        "url": "https://www.eia.gov/rss/todayinenergy.xml",
+        "enabled": true,
+        "category": "natgas",
+        "profile": "energy-data"
+      },
+      {
+        "name": "Natural Gas (Google News)",
+        "url": "https://news.google.com/rss/search?q=%22natural+gas%22+Henry+Hub+when:2d&hl=en-US&gl=US&ceid=US:en",
+        "enabled": true,
+        "category": "natgas",
+        "profile": "energy-data"
+      }
+    ],
+    "reddit": {
+      "enabled": false,
+      "subreddits": [],
+      "users": []
+    },
+    "telegram": {
+      "enabled": false,
+      "channels": []
+    },
+    "twitter": {
+      "enabled": false,
+      "users": [],
+      "keywords": [],
+      "profile": "energy-data"
+    }
+  },
+  "collection": {
+    "time_window_hours": 26
+  },
+  "digest": {
+    "max_items": 18,
+    "group_by": "profile",
+    "profile_order": [
+      "fashion",
+      "ai-news",
+      "energy-data"
+    ],
+    "category_groups": {
+      "fashion": {
+        "name": "時尚與精品",
+        "limit": 5,
+        "categories": [
+          "fashion"
+        ]
+      },
+      "ai": {
+        "name": "AI 前沿",
+        "limit": 6,
+        "categories": [
+          "ai-news"
+        ]
+      },
+      "natgas": {
+        "name": "天然氣數據",
+        "limit": 5,
+        "categories": [
+          "energy-data"
+        ]
+      }
+    },
+    "default_group": "other",
+    "default_group_limit": 2
+  }
+}
