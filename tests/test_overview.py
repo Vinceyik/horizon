@@ -71,3 +71,33 @@ def test_prompt_forbids_simplified_chinese():
     run(generate_group_overviews(client, [("fashion", "時尚與精品", [make_item()])], "zh-Hant"))
     system, user = client.calls[0]
     assert "Traditional Chinese" in system + user
+
+
+def test_throttle_sleeps_between_calls_only(monkeypatch):
+    sleeps = []
+
+    async def fake_sleep(seconds):
+        sleeps.append(seconds)
+
+    monkeypatch.setattr("src.site.overview._sleep", fake_sleep)
+    client = FakeClient()
+    groups = [
+        ("a", "A", [make_item()]),
+        ("b", "B", [make_item()]),
+        ("c", "C", [make_item()]),
+    ]
+    run(generate_group_overviews(client, groups, "zh-Hant", throttle_sec=0.5))
+    assert sleeps == [0.5, 0.5]
+
+
+def test_no_sleep_without_a_throttle(monkeypatch):
+    sleeps = []
+
+    async def fake_sleep(seconds):
+        sleeps.append(seconds)
+
+    monkeypatch.setattr("src.site.overview._sleep", fake_sleep)
+    run(generate_group_overviews(
+        FakeClient(), [("a", "A", [make_item()]), ("b", "B", [make_item()])], "zh-Hant"
+    ))
+    assert sleeps == []

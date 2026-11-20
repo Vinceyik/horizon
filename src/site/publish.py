@@ -107,7 +107,7 @@ def item_to_site_item(item: ContentItem, language: str) -> SiteItem:
 
     return SiteItem(
         title=normalize_language(title, language),
-        original_title=item.title,
+        original_title=normalize_language(item.title, language),
         url=str(item.url),
         source=source_label(item),
         score=score,
@@ -130,16 +130,7 @@ def build_payload(
     now: datetime,
 ) -> SitePayload:
     """Assemble the payload, always emitting every configured group."""
-    profile_to_group: dict[str, str] = {}
-    for group_id, _name, profiles in groups:
-        for profile in profiles:
-            profile_to_group[profile] = group_id
-
-    buckets: dict[str, list[ContentItem]] = {group_id: [] for group_id, _n, _p in groups}
-    for item in items:
-        group_id = item_group_id(item, profile_to_group, "other")
-        if group_id in buckets:
-            buckets[group_id].append(item)
+    buckets = group_items(items, groups)
 
     failed = group_failed or {}
     overview_map = overviews or {}
@@ -157,7 +148,7 @@ def build_payload(
             SiteGroup(
                 id=group_id,
                 name=name,
-                overview=overview_map.get(group_id, ""),
+                overview=normalize_language(overview_map.get(group_id, ""), language),
                 status=status,
                 note=GROUP_NOTES[status],
                 items=[item_to_site_item(item, language) for item in bucket],
@@ -185,16 +176,26 @@ def profile_to_group_map(config) -> dict[str, str]:
     return mapping
 
 
-def site_groups(config, items=None) -> list[tuple[str, str, list[str]]]:
-    """Return the configured groups as (id, tab name, profile ids).
-
-    ``items`` is accepted for call-site symmetry with the orchestrator; the
-    grouping itself comes entirely from config.
-    """
+def site_groups(config) -> list[tuple[str, str, list[str]]]:
+    """Return the configured groups as (id, tab name, profile ids)."""
     return [
         (group_id, group.name or group_id, list(group.categories))
         for group_id, group in config.digest.category_groups.items()
     ]
+
+
+def group_items(items, groups, default_group: str = "other"):
+    """Bucket items into their configured groups, preserving input order."""
+    profile_map: dict[str, str] = {}
+    for group_id, _name, profiles in groups:
+        for profile in profiles:
+            profile_map[profile] = group_id
+    buckets: dict[str, list] = {group_id: [] for group_id, _n, _p in groups}
+    for item in items:
+        group_id = item_group_id(item, profile_map, default_group)
+        if group_id in buckets:
+            buckets[group_id].append(item)
+    return buckets
 
 
 def _sources_by_group(config) -> dict[str, list[tuple[str, str]]]:

@@ -40,8 +40,8 @@ from .processing import ProfileRegistry
 from .processing.content import COMMENTS_MARKER, split_content
 from .processing.tools import ToolRegistry
 from .site.overview import generate_group_overviews
-from .site.publish import (build_payload, group_failure_map, item_group_id,
-                           profile_to_group_map, site_groups, write_payload)
+from .site.publish import (build_payload, group_failure_map, group_items,
+                           site_groups, write_payload)
 
 
 _TRACKING_QUERY_PARAMETERS = {
@@ -479,17 +479,10 @@ class HorizonOrchestrator:
                 if item.processing and language in item.processing.artifacts
             ]
 
-        group_defs = groups if groups is not None else site_groups(self.config, items)
+        group_defs = groups if groups is not None else site_groups(self.config)
 
         if overviews is None:
-            profile_map = profile_to_group_map(self.config)
-            buckets: Dict[str, List[ContentItem]] = {
-                group_id: [] for group_id, _name, _profiles in group_defs
-            }
-            for item in items:
-                group_id = item_group_id(item, profile_map, "other")
-                if group_id in buckets:
-                    buckets[group_id].append(item)
+            buckets: Dict[str, List[ContentItem]] = group_items(items, group_defs)
             try:
                 overviews = await generate_group_overviews(
                     self.ai_client,
@@ -498,6 +491,7 @@ class HorizonOrchestrator:
                         for group_id, name, _profiles in group_defs
                     ],
                     language,
+                    throttle_sec=getattr(ai_config, "throttle_sec", 0.0),
                 )
             except Exception as exc:
                 self.console.print(

@@ -62,9 +62,11 @@ Everything editorial lives in `data/config.personal.json`. Edit that file, not `
 - **Add a feed** — append to `sources.rss` with `name`, `url`, `category`, `profile`.
 - **Change the mix** — `digest.category_groups.<group>.limit` caps how many items each tab gets; `max_items` caps the day.
 - **Tighten quality** — raise `processing.profile_settings.<profile>.threshold`.
-- **Switch model or provider** — the `ai` block. For DeepSeek: `provider: "openai"`, `base_url: "https://api.deepseek.com"`, `model: "deepseek-v4-flash"`, `api_key_env: "DEEPSEEK_API_KEY"`.
+- **Switch model or provider** — the `ai` block. For DeepSeek: `provider: "openai"`, `base_url: "https://api.deepseek.com"`, `model: "deepseek-v4-flash"` (upstream's default), `api_key_env: "DEEPSEEK_API_KEY"`.
 
 Prompts live in `profiles/fashion`, `profiles/ai-news`, `profiles/energy-data`, each with `match.md`, `analysis.md`, `enrichment.md`.
+
+The published files land in `web/` by default. Set `HORIZON_SITE_DIR` to write them elsewhere; the workflow and the front-end both assume `web/`.
 
 ## 6. Caveats
 

@@ -41,6 +41,8 @@ cp web/data.sample.json web/data.json
 cd web && python -m http.server 8099
 ```
 
+On Windows PowerShell, use `Copy-Item web\data.sample.json web\data.json` for the first line.
+
 Then open http://localhost:8099/.
 
 ## Upstream
