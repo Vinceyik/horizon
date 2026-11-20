@@ -19,13 +19,16 @@ Repository → Settings → Secrets and variables → Actions → New repository
 
 | Secret | Required | What it is |
 |---|---|---|
-| `OPENAI_API_KEY` | one of these | An OpenAI-compatible key. The default config points at OpenRouter (`https://openrouter.ai/api/v1`), so an [OpenRouter](https://openrouter.ai/keys) key is the intended value. |
-| `GOOGLE_API_KEY` | one of these | A Gemini key. Only useful if Gemini accepts your region; Hong Kong is not on Google's supported-region list as of 2026-11. |
+| `OPENCODE_API_KEY` | yes, by default | An [OpenCode Go](https://opencode.ai/console) key. The default config calls `https://opencode.ai/inference/go/openai/v1` with `deepseek-v4.1-flash`. |
+| `OPENAI_API_KEY` | alternative | Any OpenAI-compatible key, for example [OpenRouter](https://openrouter.ai/keys). Swap `base_url`, `model` and `api_key_env` in the config to use it. |
+| `GOOGLE_API_KEY` | alternative | A Gemini key. Only useful if Gemini accepts your region; Hong Kong is not on Google's supported-region list as of 2026-11. |
 | `APIFY_TOKEN` | no | Only needed if you enable `sources.twitter` in `data/config.personal.json`. |
-| `DEEPSEEK_API_KEY` | no | Needed only if you switch the `ai` block to DeepSeek. The workflow already exports it. |
+| `DEEPSEEK_API_KEY` | no | Needed only if you point `ai` at DeepSeek directly instead of through OpenCode Go. |
 | `ANTHROPIC_API_KEY` | no | Needed only if you switch the `ai` block to Anthropic. |
 
 The workflow exports every name in this table, so switching provider is the three config fields below plus the matching secret.
+
+**About reusing an OpenCode Go subscription:** it works, and it shares your monthly Go allowance with your coding. A daily briefing uses roughly 10–12 million tokens a month, which is a noticeable slice of a Go plan. Go is also positioned for coding agents and monitors traffic for abuse, so a news summariser is outside its intended use. If either matters, point `ai` at a separate DeepSeek or OpenRouter key instead — that is a three-field change.
 
 `GITHUB_TOKEN` is provided by Actions; do not add it.
 
@@ -62,7 +65,7 @@ Everything editorial lives in `data/config.personal.json`. Edit that file, not `
 - **Add a feed** — append to `sources.rss` with `name`, `url`, `category`, `profile`.
 - **Change the mix** — `digest.category_groups.<group>.limit` caps how many items each tab gets; `max_items` caps the day.
 - **Tighten quality** — raise `processing.profile_settings.<profile>.threshold`.
-- **Switch model or provider** — the `ai` block. For DeepSeek: `provider: "openai"`, `base_url: "https://api.deepseek.com"`, `model: "deepseek-v4-flash"` (upstream's default), `api_key_env: "DEEPSEEK_API_KEY"`.
+- **Switch model or provider** — the `ai` block. The default is OpenCode Go: `provider: "openai"`, `base_url: "https://opencode.ai/inference/go/openai/v1"`, `model: "deepseek-v4.1-flash"`, `api_key_env: "OPENCODE_API_KEY"`. Another Go model id (for example `glm-5.3-flash` or `kimi-k3`) is a one-word change. For DeepSeek direct: `base_url: "https://api.deepseek.com"`, `model: "deepseek-v4-flash"` (upstream's default), `api_key_env: "DEEPSEEK_API_KEY"`.
 
 Prompts live in `profiles/fashion`, `profiles/ai-news`, `profiles/energy-data`, each with `match.md`, `analysis.md`, `enrichment.md`.
 

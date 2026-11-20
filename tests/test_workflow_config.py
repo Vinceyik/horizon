@@ -25,7 +25,8 @@ def test_daily_workflow_uses_personal_config():
 
 def test_daily_workflow_exports_every_documented_provider_key():
     text = WORKFLOW.read_text(encoding="utf-8")
-    for name in ("OPENAI_API_KEY", "GOOGLE_API_KEY", "DEEPSEEK_API_KEY", "ANTHROPIC_API_KEY"):
+    for name in ("OPENCODE_API_KEY", "OPENAI_API_KEY", "GOOGLE_API_KEY",
+                 "DEEPSEEK_API_KEY", "ANTHROPIC_API_KEY"):
         assert "secrets." + name in text
 
 
