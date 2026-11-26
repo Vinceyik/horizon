@@ -77,8 +77,31 @@ function formatTimestamp(iso) {
   }).format(date);
 }
 
-function hkDay(offsetDays) {
-  const now = new Date();
+function formatShort(iso) {
+  const date = new Date(iso);
+  if (Number.isNaN(date.getTime())) return '';
+  return new Intl.DateTimeFormat('zh-HK', {
+    timeZone: HK,
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false,
+  }).format(date);
+}
+
+function formatDayLabel(value) {
+  const date = new Date(String(value) + 'T00:00:00+08:00');
+  if (Number.isNaN(date.getTime())) return String(value || '');
+  return new Intl.DateTimeFormat('zh-HK', {
+    timeZone: HK,
+    month: 'long',
+    day: 'numeric',
+    weekday: 'short',
+  }).format(date);
+}
+
+function hkDay(offsetDays) {  const now = new Date();
   const shifted = new Date(now.getTime() - offsetDays * 86400000);
   return new Intl.DateTimeFormat('sv-SE', { timeZone: HK }).format(shifted);
 }
@@ -105,6 +128,7 @@ function renderItem(item) {
 
   const meta = el('p', 'card-meta');
   if (item.source) meta.appendChild(el('span', null, item.source));
+  if (item.publishedAt) meta.appendChild(el('span', null, formatShort(item.publishedAt)));
   if (typeof item.score === 'number' && Number.isFinite(item.score)) {
     meta.appendChild(el('span', 'badge', item.score.toFixed(1) + ' / 10'));
   }
@@ -113,10 +137,7 @@ function renderItem(item) {
   if (item.blurb) card.appendChild(el('p', 'blurb', item.blurb));
 
   if (item.summary) {
-    const details = el('details');
-    details.appendChild(el('summary', null, '詳細摘要'));
-    details.appendChild(el('p', 'detail-body', item.summary));
-    card.appendChild(details);
+    card.appendChild(el('p', 'detail-body', item.summary));
   }
 
   if (Array.isArray(item.dataPoints) && item.dataPoints.length) {
@@ -150,6 +171,31 @@ function renderGroup(group, index) {
   }
 
   return section;
+}
+
+function renderDay(data, groups) {
+  const day = el('section', 'day');
+
+  const header = el('div', 'day-header');
+  const toggle = el('button', 'day-toggle');
+  toggle.type = 'button';
+  toggle.setAttribute('aria-expanded', 'true');
+  toggle.appendChild(el('span', 'day-label', formatDayLabel(data.date)));
+  toggle.appendChild(el('span', 'day-count', (Number(data.selected) || 0) + ' 條'));
+
+  const body = el('div', 'day-body');
+  groups.forEach((group, index) => body.appendChild(renderGroup(group, index)));
+
+  toggle.addEventListener('click', () => {
+    const expanded = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+    body.hidden = expanded;
+  });
+
+  header.appendChild(toggle);
+  day.appendChild(header);
+  day.appendChild(body);
+  return day;
 }
 
 function selectTab(groupId) {
@@ -229,7 +275,11 @@ function render(data) {
   const groups = Array.isArray(data.groups) ? data.groups : [];
   const panels = byId('panels');
   panels.replaceChildren();
-  groups.forEach((group, index) => panels.appendChild(renderGroup(group, index)));
+  if (groups.length) {
+    panels.appendChild(renderDay(data, groups));
+  } else {
+    panels.appendChild(el('p', 'notice', '今日無新內容'));
+  }
 
   buildTabs(groups);
   renderFailures(data.failures);

@@ -275,6 +275,46 @@ summary {
   color: var(--muted);
 }
 
+.day-header {
+  margin: 0 0 12px;
+}
+
+.day-toggle {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  width: 100%;
+  gap: 8px;
+  border: 0;
+  border-bottom: 1px solid var(--border);
+  background: transparent;
+  color: var(--fg);
+  padding: 4px 2px 8px;
+  font: inherit;
+  cursor: pointer;
+}
+
+.day-label {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.day-count {
+  font-size: 0.8rem;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.day-body[hidden] {
+  display: none;
+}
+
+.card .detail-body {
+  margin: 10px 0 0;
+  font-size: 0.92rem;
+  line-height: 1.7;
+}
+
 .retry {
   margin-top: 10px;
   border: 1px solid var(--border);
@@ -300,5 +340,31 @@ summary {
 
   h1 {
     font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 560px) {
+  body {
+    padding-bottom: 92px;
+  }
+
+  .tabs {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 20;
+    margin: 0;
+    padding: 8px 12px calc(8px + env(safe-area-inset-bottom));
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+    gap: 4px;
+  }
+
+  .tab {
+    flex: 1 1 0;
+    text-align: center;
+    padding: 9px 8px;
+    font-size: 0.85rem;
   }
 }
