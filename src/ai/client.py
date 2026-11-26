@@ -121,25 +121,29 @@ def _unwrap_gateway_envelope(content: Optional[str]) -> str:
     if not content:
         return content or ""
     text = content.strip()
-    if not text.startswith("{"):
-        return content
-    try:
-        data = json.loads(text)
-    except (ValueError, TypeError):
-        return content
-    if not isinstance(data, dict):
-        return content
-    messages = data.get("messages")
-    if not isinstance(messages, list):
-        return content
-    parts = [
-        message["content"]
-        for message in messages
-        if isinstance(message, dict)
-        and message.get("role") == "assistant"
-        and isinstance(message.get("content"), str)
-    ]
-    return "\n".join(parts) if parts else content
+    for _ in range(3):
+        if not text.startswith("{"):
+            return text
+        try:
+            data = json.loads(text)
+        except (ValueError, TypeError):
+            return text
+        if not isinstance(data, dict):
+            return text
+        messages = data.get("messages")
+        if not isinstance(messages, list):
+            return text
+        parts = [
+            message["content"]
+            for message in messages
+            if isinstance(message, dict)
+            and message.get("role") == "assistant"
+            and isinstance(message.get("content"), str)
+        ]
+        if not parts:
+            return text
+        text = "\n".join(parts).strip()
+    return text
 
 
 def _is_response_format_unsupported(message: str) -> bool:

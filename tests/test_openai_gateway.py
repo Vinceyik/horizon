@@ -47,6 +47,12 @@ def test_messages_envelope_is_unwrapped():
     assert _unwrap_gateway_envelope(raw) == "庫存降至 3,850 BCF。"
 
 
+def test_nested_messages_envelopes_are_unwrapped():
+    inner = json.dumps({"messages": [{"role": "assistant", "content": "庫存下降。"}]})
+    outer = json.dumps({"messages": [{"role": "assistant", "content": inner}]})
+    assert _unwrap_gateway_envelope(outer) == "庫存下降。"
+
+
 def test_plain_text_and_other_json_are_left_alone():
     assert _unwrap_gateway_envelope("庫存降至 3,850 BCF。") == "庫存降至 3,850 BCF。"
     payload = '{"score": 8, "reason": "ok"}'
