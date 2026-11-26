@@ -22,7 +22,7 @@
         "topic_dedup": true
       },
       "ai-news": {
-        "threshold": 6.5,
+        "threshold": 5.5,
         "topic_dedup": true
       },
       "energy-data": {
