@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import asyncio
+import json
 import logging
 from typing import Optional
 
@@ -23,7 +24,7 @@ SYSTEM_PROMPT = (
     "Use Traditional Chinese (Hong Kong) only; never output Simplified Chinese characters. "
     "Write 2-3 sentences of plain prose, no bullet points, no headline restatement, "
     "no marketing language. Lead with the single most important development. "
-    "Return plain text only."
+    "Return a JSON object with exactly one key, \"overview\", whose value is the prose."
 )
 
 
@@ -52,8 +53,28 @@ def _build_user_prompt(name: str, items: list[ContentItem], language: str) -> st
     return prompt[:MAX_PROMPT_CHARS]
 
 
+def _coerce_text(text: str) -> str:
+    """Accept either prose or the JSON object the prompt asks for."""
+    text = (text or "").strip()
+    if not text.startswith("{"):
+        return text
+    try:
+        data = json.loads(text)
+    except (ValueError, TypeError):
+        return ""
+    if not isinstance(data, dict):
+        return ""
+    candidates: list[str] = []
+    for value in data.values():
+        if isinstance(value, str):
+            candidates.append(value)
+        elif isinstance(value, list):
+            candidates.extend(v for v in value if isinstance(v, str))
+    return max(candidates, key=len).strip() if candidates else ""
+
+
 def _trim(text: str) -> str:
-    text = text.strip()
+    text = _coerce_text(text)
     if not text or text[0] in "{[<":
         return ""
     if len(text) <= MAX_OVERVIEW_CHARS:

@@ -81,6 +81,14 @@ def test_json_looking_reply_is_dropped():
     assert result["fashion"] == ""
 
 
+def test_json_overview_reply_is_used():
+    client = FakeClient(reply='{"overview": "庫存下降 52 BCF，較五年均值多減 18。"}')
+    result = run(generate_group_overviews(
+        client, [("natgas", "天然氣數據", [make_item()])], "zh-Hant"
+    ))
+    assert result["natgas"] == "庫存下降 52 BCF，較五年均值多減 18。"
+
+
 def test_throttle_sleeps_between_calls_only(monkeypatch):
     sleeps = []
 
