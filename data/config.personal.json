@@ -83,6 +83,46 @@
         "profile": "fashion"
       },
       {
+        "name": "GQ",
+        "url": "https://www.gq.com/feed/rss",
+        "enabled": true,
+        "category": "fashion",
+        "content_extractor": "trafilatura",
+        "profile": "fashion"
+      },
+      {
+        "name": "WWD",
+        "url": "https://wwd.com/feed/",
+        "enabled": true,
+        "category": "fashion",
+        "content_extractor": "trafilatura",
+        "profile": "fashion"
+      },
+      {
+        "name": "Monochrome Watches",
+        "url": "https://monochrome-watches.com/feed/",
+        "enabled": true,
+        "category": "fashion",
+        "content_extractor": "trafilatura",
+        "profile": "fashion"
+      },
+      {
+        "name": "Fratello Watches",
+        "url": "https://www.fratellowatches.com/feed/",
+        "enabled": true,
+        "category": "fashion",
+        "content_extractor": "trafilatura",
+        "profile": "fashion"
+      },
+      {
+        "name": "Revolution",
+        "url": "https://www.revolution.watch/feed/",
+        "enabled": true,
+        "category": "fashion",
+        "content_extractor": "trafilatura",
+        "profile": "fashion"
+      },
+      {
         "name": "OpenAI Blog",
         "url": "https://openai.com/blog/rss.xml",
         "enabled": true,
