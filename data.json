@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-11-26T20:42:45+08:00",
+  "generatedAt": "2026-11-26T20:55:38+08:00",
   "date": "2026-11-26",
   "language": "zh-Hant",
-  "totalFetched": 178,
-  "selected": 9,
+  "totalFetched": 175,
+  "selected": 6,
   "groups": [
     {
       "id": "fashion",
@@ -13,17 +13,16 @@
       "note": null,
       "items": [
         {
-          "title": "Pitt 與 Fincher 談《The Further Mis-Adventures of Cliff Booth》選錶：訂製 Explorer 1016、古董 JLC 與 Patek",
+          "title": "Hodinkee《Talking Watches》：Brad Pitt 與 David Fincher 談《The Further Mis-Adventures of Cliff Booth》選錶",
           "originalTitle": "Talking Watches: With Brad Pitt And David Fincher",
           "url": "https://www.hodinkee.com/articles/with-brad-pitt-and-david-fincher",
           "source": "Hodinkee",
           "score": 7.0,
-          "blurb": "Pitt 與 Fincher 為新片選錶，Cloister 把虛構 Explorer 製成實物。",
-          "summary": "Hodinkee 的 Talking Watches 請來 Brad Pitt、David Fincher 與 Cloister Watch Co. 的 Cooper Zelnick，講解《The Further Mis-Adventures of Cliff Booth》的選錶。最具體的是 Cloister 為 Cliff Booth 製作的白金 Rolex Explorer 1016：白色琺瑯面，錶帶每節加入彈簧改成可伸縮結構，屬片中虛構、戲外實做的錶。戲中用了兩隻 Jaeger-LeCoultre Memovox E873 實錶，另有一隻供打鬥場面使用的塑膠道具版。其餘包括白金 Patek Philippe Calatrava 570（Gay Frères 錶帶、錶鏡有裂痕）、David Fincher 擁有並供 Elizabeth Debicki 戲中佩戴的 Cartier Tank Arrondie，以及 Scott Caan 角色佩戴的 Rolex GMT-Master II 1675/8 與 Audemars Piguet Royal Oak 5402。電影 11 月 25 日在 IMAX 上映，12 月 23 日在 Netflix 上線；報道沒有提供任何腕錶售價。",
+          "blurb": "新一集由 Pitt 與 Fincher 拆解戲中選錶，供錶迷。",
+          "summary": "Hodinkee 播出《Talking Watches》新一集，嘉賓為 Brad Pitt、David Fincher 與 Cloister Watch Co. 的 Cooper Zelnick，主題是電影《The Further Mis-Adventures of Cliff Booth》的角色腕錶。焦點是一隻 Cloister Watch Co. 訂製的白金 Rolex Explorer 1016，配白色琺瑯錶盤，鏈帶每節加彈簧改成可伸縮的「stretch」版本。其他包括三隻 Jaeger-LeCoultre Memovox E873（一隻為塑料替身）、配 Gay Frères 鏈帶且錶鏡有裂痕的白金 Patek Philippe Calatrava Ref. 570，以及 Fincher 送給 Elizabeth Debicki 的 Cartier Tank Arrondie。選錶以 1977 年時代背景與角色合理性為準則，另有 Rolex GMT-Master II 1675/8、早期兩色 Audemars Piguet Royal Oak 5402 及 1952 年 Rolex Pre-Daytona Ref. 6034。電影 11 月 25 日於 IMAX 上映，12 月 23 日在 Netflix 上線；節目屬道具選錶拆解，並非新品發布或拍賣。",
           "dataPoints": [
-            "IMAX 上映: 11 月 25 日（Netflix 上線前）",
-            "Netflix 上線: 12 月 23 日（IMAX 上映後）",
-            "JLC Memovox E873: 3 個版本（2 隻實錶、1 隻塑膠道具）"
+            "IMAX 上映: 2026 年 11 月 25 日",
+            "Netflix 上線: 2026 年 12 月 23 日"
           ],
           "publishedAt": "2026-11-25T12:02:13Z"
         }
@@ -37,70 +36,43 @@
       "note": null,
       "items": [
         {
-          "title": "Nemotron 3.5 Parse 開放三個合成數據集、微調配方與 DFlash2 加速推論",
+          "title": "NVIDIA Nemotron 3.5 Parse 配套開放：三個訓練資料集、SFT+GRPO 配方與 DFlash2 推測解碼",
           "originalTitle": "Building on Nemotron 3.5 Parse: Open Data, Fine-Tuning, and Faster Inference",
           "url": "https://huggingface.co/blog/nvidia/building-on-nemotron-35-parse-open-data-fine-tunin",
           "source": "Hugging Face Blog",
           "score": 8.0,
-          "blurb": "Parse 開源三個合成數據集與微調配方，助文件解析開發者。",
-          "summary": "NVIDIA 在 Nemotron 3.5 Parse 文件解析模型推出後，於 Hugging Face 博客補充三項資源：三個開源合成訓練數據集、一套微調配方，以及 DFlash2 推測解碼器（speculator）。開放數據集為 Synthetic Charts V1（998 萬例）、Synthetic Tables V1（100 萬例）與 OCR Synthetic Multilingual v2（790 萬例），每套附圖像、標註、生成文檔與訓練格式，可直接用於微調或衍生新變體。訓練分兩階段：先做 SFT 建立讀頁與結構化輸出能力，再以 GRPO 做可驗證獎勵強化學習（RLVR）；廠方在配對比較（開發檢查點，非最終釋出模型）中報告整體分數由 66.24 升至 71.38，被標記為重複迴圈的輸出由 126 頁減至 29 頁。架構改為 NaViT 動態矩形輸入、把壓縮視覺 token 作為因果前綴、解碼器改用 GQA-8（16 個 query heads、8 個 key/value heads），並加上最多前瞻 32 token 的 DFlash2 草稿模型；廠方在單張 H200、BF16 下量得併發 1 時吞吐提升 7.62 倍、併發 512 時提升 1.52 倍，相對關閉推測解碼的 Parse 3.5。微調配方以合成牙科表格為範例，流程為配對數據生成、NeMo Automodel SFT、NeMo RL GRPO（用 vLLM 產生候選答案），廠方稱 sampled pass@1 由基礎模型 0.00% 經 SFT 升至 95.85%、RLVR 後達 96.58%。上述準確度與吞吐數字除另行註明外均為 NVIDIA 自行報告，部分比較使用開發檢查點。",
+          "blurb": "Parse 3.5 開源三個資料集、微調配方與 DFlash2 加速，供文件解析開發者複用。",
+          "summary": "NVIDIA 在 Hugging Face 為 Nemotron 3.5 Parse 文件解析模型補上三項配套：三個開放訓練資料集、一套 SFT + RLVR（GRPO）微調配方，以及 DFlash2 推測解碼器。開放資料集為 Synthetic Charts V1（998 萬樣本）、Synthetic Tables V1（100 萬）與 OCR Synthetic Multilingual v2（790 萬），各附影像、標註、生成文件與訓練格式，可直接用於微調或衍生新變體。廠方以匹配評測設定比較 SFT 與 GRPO 開發檢查點：整體分數 66.24 → 71.38，表格 +5.18、圖表 +4.15，被重複偵測標記的頁面由 126 降至 29，觸及 9,000 token 上限的頁面由 185 降至 35。架構上改為 NaViT 動態矩形輸入、以壓縮視覺 token 作 causal prefix 取代 encoder–decoder cross-attention、解碼器改用 GQA-8（16 個 query head、8 個 key/value head）。廠方報稱單張 H200、BF16 原生單次通過下，DFlash2 在 concurrency 1 提升吞吐 7.62×，concurrency 512 時達 20.44 頁/秒（Parse 2.0 為 2.98 頁/秒），以上數字均為 NVIDIA 自行量測。",
           "dataPoints": [
-            "開放數據集: Synthetic Charts V1 998 萬例、Synthetic Tables V1 100 萬例、OCR Synthetic Multilingual v2 790 萬例",
-            "配對比較總分: 66.24 → 71.38（SFT vs GRPO，開發檢查點，廠方報告）",
-            "分項增益: 表格 +5.18、圖表 +4.15（同上配對比較）",
-            "重複迴圈輸出: 126 頁 → 29 頁（約減 77%）",
-            "達 9,000 token 上限輸出: 185 → 35 頁",
-            "吞吐（單張 H200、BF16、2,078 頁）: DFlash2 相對關閉推測解碼提升 7.62 倍（併發 1）、1.52 倍（併發 512）",
-            "併發 512 吞吐: 20.44 頁/秒（DFlash2）、13.48 頁/秒（無推測解碼）、Parse 2.0 為 2.98 頁/秒",
-            "DFlash2 草稿: 最多前瞻 32 token，平均約 14 個被接受，連目標 token 每個驗證步約 15 token",
-            "多輪解析增益: 兩輪 +2.18、三輪 +2.46 ParseBench 分（相對單輪）",
-            "牙科表單 sampled pass@1: 0.00% → 95.85%（SFT）→ 96.58%（RLVR），256 頁留出集、每頁 8 個樣本",
-            "解碼器注意力: GQA-8，16 個 query heads、8 個 key/value heads",
-            "頁面預處理: 固定 2048 × 1664 畫布（Parse 2.0）→ NaViT 動態矩形輸入（Parse 3.5）"
+            "開放資料集: Synthetic Charts V1 998 萬樣本、Synthetic Tables V1 100 萬、OCR Synthetic Multilingual v2 790 萬",
+            "整體分數: 66.24 → 71.38（同一評測設定下的 SFT 對 GRPO 開發檢查點，廠方數據）",
+            "表格分項: +5.18 分（GRPO 相對 SFT）",
+            "圖表分項: +4.15 分（GRPO 相對 SFT）",
+            "重複標記輸出: 126 頁 → 29 頁（約減 77%）",
+            "觸及 9,000 token 上限: 185 頁 → 35 頁",
+            "吞吐提升: concurrency 1 為 7.62×、concurrency 512 為 1.52×（相對關閉推測解碼的 Parse 3.5，單張 H200、BF16）",
+            "concurrency 512 吞吐: 20.44 頁/秒（無推測為 13.48，Parse 2.0 為 2.98）",
+            "相對 Parse 2.0: 6.86×（DFlash2）與 4.53×（無推測），均為 concurrency 512",
+            "多輪解析: 雙輪 +2.18、三輪 +2.46 ParseBench 分（相對單輪，廠方參考評測）",
+            "微調 pass@1: 0.00% → 95.85%（SFT）→ 96.58%（GRPO），256 份留出表格、每頁取樣 8 次",
+            "DFlash2 草稿: 最多前瞻 32 token，實測平均接受約 14 個，每次驗證約推進 15 個輸出 token",
+            "GQA-8 設定: 16 個 query head、8 個 key/value head（降低解碼器注意力快取記憶體）"
           ],
           "publishedAt": "2026-11-26T05:05:36Z"
         },
         {
-          "title": "Minipg：把 PostgreSQL 打包成單一執行檔",
-          "originalTitle": "Minipg: PostgreSQL as a Single Executable",
-          "url": "https://progrium.github.io/minipg/",
-          "source": "hackernews",
-          "score": 7.0,
-          "blurb": "單一執行檔包裝 PostgreSQL，免 Docker 跑本機資料庫。",
-          "summary": "Minipg 將 PostgreSQL 封裝成單一執行檔，讓開發者毋須安裝或運行 Docker，即可在本機或小型自架應用中啟動 Postgres。項目頁面以「免 Docker」為主要賣點；社羣評論指它重用 PostgreSQL 的 Alpine 映像，並透過年輕的嵌入式 hypervisor 工具 h9 執行，而非經 Docker daemon。對 builder 而言，這代表可把資料庫當作單一檔案隨專案分發，先在 Postgres 上開發，日後再遷移至獨立伺服器。惟現有材料未提供版本號、PostgreSQL 版本對應、平臺支援、相容性限制或任何效能基準，實際可用範圍仍待查證。",
-          "dataPoints": [],
-          "publishedAt": "2026-11-26T03:00:48Z"
-        },
-        {
-          "title": "Linux 核心 NFS 伺服器被披露 pre-auth 遠端 root 漏洞（CVE-2026-99362）",
+          "title": "NFS2ROOT：Linux 核心 NFS 伺服器被指存在 12 年的預認證遠端 root 漏洞（CVE-2026-99362）",
           "originalTitle": "Nfs2root: A 12-year-old pre-auth remote root in the Linux kernel's NFS server",
           "url": "https://opensec.in/blog/nfs2root-cve-2026-99362",
           "source": "hackernews",
           "score": 7.0,
-          "blurb": "核心 NFS 伺服器有 pre-auth root 漏洞，可停用 4.1/4.2 暫緩。",
-          "summary": "Linux 核心的 NFS 伺服器被披露一個編號 CVE-2026-99362 的認證前（pre-auth）遠端 root 漏洞，據標題所述相關程式碼已存在約 12 年。目前可取得的材料只有標題與社羣討論，沒有根因分析、受影響版本清單，也沒有上游修補 commit 或公告連結，因此實際影響範圍與觸發條件仍未經確認。社羣留言指漏洞似乎只涉及 NFS 4.1 與 4.2 及以上協定，並提出臨時緩解步驟：先關閉 nfs-server，再以 echo \"-4.1 -4.2\" 寫入 /proc/fs/nfsd/versions，該設定在重新開機後失效。另有留言建議用第三方 XDP L7 防火牆規則攔截，屬未經獨立驗證的外部方案，並非官方修補。對未能即時更新核心的發行版而言，停用上述 NFS 協定版本是目前最具體的可操作步驟，但仍應以正式公告與修補為準。",
+          "blurb": "NFS 伺服器藏 12 年遠端 root 漏洞，可停 4.1/4.2 暫緩",
+          "summary": "安全研究部落格 opensec.in 披露 Linux 核心 NFS 伺服器一個編號 CVE-2026-99362 的預認證（pre-auth）遠端 root 漏洞，文章標題稱其潛伏約 12 年。惟目前取得的摘要未附修補 commit、受影響核心版本範圍，亦無獨立重現或第三方確認，實際影響面仍有待覈實。社羣討論中，有使用者認為問題只涉及 NFS 4.1 及 4.2，並提出以 `echo \"-4.1 -4.2\" | sudo tee /proc/fs/nfsd/versions` 臨時停用這兩個次版本，此設定在重新開機後失效；該判斷屬個人推測而非官方公告。另有使用者表示其 NFSv4 伺服器置於 spiped 之後，並有人貼出以 XDP 為基礎的 L7 防火牆規則作為另一種緩解手段。上述均屬社羣意見，操作者應以發行版與上游核心的正式公告為準。",
           "dataPoints": [
-            "漏洞潛伏時間: 約 12 年（據文章標題）",
-            "涉及協定: NFS 4.1 及 4.2 以上（社羣留言指稱，未經公告確認）"
+            "漏洞潛伏時間: 約 12 年（據文章標題所述，未經獨立確認）",
+            "討論提交日期: 2026-11-25"
           ],
           "publishedAt": "2026-11-25T20:35:50Z"
-        },
-        {
-          "title": "llama.cpp × AMD 基準儀錶板公開 PP512／TG128 數據",
-          "originalTitle": "Introducing the llama.cpp benchmark dashboard for AMD Ryzen and Radeon",
-          "url": "https://huggingface.co/blog/ggml-org/llamacpp-amd-bench",
-          "source": "Hugging Face Blog",
-          "score": 7.0,
-          "blurb": "AMD 用戶可比較量化與 build 之間的推論吞吐差異。",
-          "summary": "Hugging Face 與 ggml-org 推出 llama.cpp × AMD 效能基準儀錶板，公開追蹤 AMD Ryzen／Radeon 硬件上 llama.cpp 的提示處理（PP512）與文字生成（TG128）吞吐量，兩者均以 token/s 計。目前硬件選項只有 Radeon 8060S（gfx1151）與 Radeon AI Pro R9700S（gfx1201），側欄可切換硬件、模型與 llama.cpp build，並設 Overview、Build history、Context scaling 三個分頁；模型涵蓋 Inkling 2 Mini、Qwen、Gemma、gpt-oss、LFM，量化由 Q4_K_M、Q8_0 到 BF16、F16。測試以 llama-install.sh（llama.app）發佈的預編譯二進位配合 llama-bench 執行，gfx1151 與 gfx1201 工作流每週排程，Flash Attention 開與關各跑，每組配置重複 10 次，圖表顯示平均吞吐 avg_ts。原始結果以 <build>/<hardware>/<model>/<quant>.jsonl 格式存放於公開的 ggml-org/install.sh-benches-data Storage Bucket，開發者可下載自行繪圖或與本機跑分對照。原文未提供任何實際分數、build 版本號或與其他後端的比較，因此現階段應視為可重現的測試框架與資料格式，而非效能結論。",
-          "dataPoints": [
-            "測試工作負載: PP512 處理 512 個輸入 token；TG128 生成 128 個 token（兩者均由 context depth n_depth=0 起算）",
-            "重複次數: 每組配置 10 次，圖表取平均吞吐 avg_ts",
-            "硬件選項: 2 款 — Radeon 8060S（gfx1151）、Radeon AI Pro R9700S（gfx1201）",
-            "排程頻率: 每週跑一次 gfx1151 與 gfx1201 工作流",
-            "Flash Attention: 開與關各跑一組（每組配置合共 10 次重複）"
-          ],
-          "publishedAt": "2026-11-26T11:37:17Z"
         }
       ]
     },
@@ -112,76 +84,48 @@
       "note": null,
       "items": [
         {
-          "title": "美國 LNG 原料氣提名估算 21.5 Bcf/d，略高於 21.2 Bcf/d 前紀錄",
+          "title": "美國 LNG 原料氣提名量迫近 21.5 Bcf/d，略高於 11 月 15 日 21.2 紀錄",
           "originalTitle": "US LNG Feedgas Tests New High Near 21.5 Bcf/d as Intraday Cuts Cloud Picture",
           "url": "https://naturalgasintel.com/news/us-lng-feedgas-tests-new-high-near-215-bcfd-as-intraday-cuts-cloud-picture/",
           "source": "Natural Gas Intelligence",
           "score": 8.0,
-          "blurb": "LNG 原料氣 21.5 Bcf/d，較前紀錄高 0.3",
-          "summary": "美國 LNG 原料氣提名週三氣日估算 21.5 Bcf/d，較 11 月 15 日所創的前紀錄 21.2 Bcf/d 高 0.3 Bcf/d，數據來自 NGI Entropic Analytics。這是該序列的新高，但屬估算值，並非最終結算。報道指日內提名削減令整體情況不明朗，紀錄高位能否維持仍有待確認。",
+          "blurb": "LNG 原料氣提名 21.5 Bcf/d，較前紀錄高 0.3",
+          "summary": "美國 LNG 原料氣提名量估算為 21.5 Bcf/d（週三氣日），較 11 月 15 日創下的 21.2 Bcf/d 舊紀錄高 0.3 Bcf/d，數據來自 NGI Entropic Analytics。此為提名估算值，並非實際交付量。來源指出日內出現削減，令讀數所反映的整體情況不明朗。來源未提供同比、五年均值或市場預期比較，亦未說明天氣、產量或管道維護等驅動因素。",
           "dataPoints": [
-            "美國 LNG 原料氣提名: 21.5 Bcf/d（週三氣日估算）",
-            "前紀錄: 21.2 Bcf/d（11 月 15 日）",
-            "較前紀錄變動: +0.3 Bcf/d（前紀錄 21.2 Bcf/d）",
-            "數據來源: NGI Entropic Analytics（估算）"
+            "LNG 原料氣提名量: 21.5 Bcf/d（週三氣日，NGI Entropic Analytics 估算）",
+            "前紀錄: 21.2 Bcf/d（2026 年 11 月 15 日）",
+            "較前紀錄變動: +0.3 Bcf/d",
+            "數據性質: 提名估算值，非實際交付量；日內出現削減"
           ],
           "publishedAt": "2026-11-25T18:37:00Z"
         },
         {
-          "title": "利比亞擬 2027、2028 新一輪招標；Sharara 閥門關閉致日產量減 35 萬桶",
-          "originalTitle": "Libya Plans New Oil Bidding Rounds Despite Mounting Security Risks",
-          "url": "https://oilprice.com/Latest-Energy-News/World-News/Libya-Plans-New-Oil-Bidding-Rounds-Despite-Mounting-Security-Risks.html",
-          "source": "OilPrice.com",
-          "score": 6.0,
-          "blurb": "Sharara 閥門遭關，日產量減 35 萬桶",
-          "summary": "利比亞國家石油公司（NOC）目前產量約 140 萬至 150 萬桶/日，本週產量因武裝組織關閉 Sharara 管道閥門而驟減約 35 萬桶/日。NOC 同時排定 2027 年針對已發現未開發油田的招標，以及 2028 年勘探招標。對上一個 2025 年招標是 18 年來首次，22 個區塊中 5 個已授予 Chevron、Eni、Repsol 及 QatarEnergy，Exxon 與 TotalEnergies 亦有參與競標。NOC 另稱 Hamada 管道遭武裝組織強制停運逾 20 日，造成嚴重財務損失及產量下降。NOC 的目標是 2030 年前產量超過 200 萬桶/日，但油田、出口碼頭及管道持續被各派系用作談判籌碼。",
+          "title": "EIA：天然氣庫存錄本季首次淨提取 24 BCF",
+          "originalTitle": "Natural Gas Market Serves Up First Storage Withdrawal of Season Before Thanksgiving Break",
+          "url": "https://naturalgasintel.com/news/natural-gas-market-serves-up-first-storage-withdrawal-of-season-before-thanksgiving-break/",
+          "source": "Natural Gas Intelligence",
+          "score": 7.0,
+          "blurb": "庫存淨提取 24 BCF，本季首次，比較基準未明",
+          "summary": "EIA 週三公佈，截至 11 月 20 日當週美國地下儲氣庫淨提取 24 BCF，為本季首次提取。該數字明確為 EIA 實際統計，並非市場預估值。來源原文在「matching the …」處截斷，因此對比基準（市場預期、前一週或五年均值）無法確認，暫不列示。原文亦未提供天氣、產量、LNG 進料氣或管道檢修等成因說明，故不就驅動因素作推論。",
           "dataPoints": [
-            "NOC 現行產量: 約 140 萬至 150 萬桶/日（無比較基準）",
-            "Sharara 閥門關閉產量損失: 約 35 萬桶/日（本週，NOC 稱）",
-            "Hamada 管道停運: 逾 20 日（武裝組織強制關閉，NOC 稱造成嚴重財務損失）",
-            "2030 年產量目標: 逾 200 萬桶/日",
-            "Essar 發現儲量: 1.95 億桶（Sabil 上、下儲層），預期產能約 5,000 桶/日",
-            "2027 年招標: 已發現未開發油田",
-            "2028 年招標: 勘探區塊",
-            "2025 年招標: 22 個區塊中 5 個已授出（18 年來首次；Chevron、Eni、Repsol、QatarEnergy）"
+            "庫存變動: -24 BCF（本季首次提取；對比基準未披露）",
+            "統計週次: 截至 11 月 20 日當週",
+            "公佈機構: 美國能源資訊署（EIA），週三公佈"
           ],
-          "publishedAt": "2026-11-26T08:30:00Z"
+          "publishedAt": "2026-11-25T17:41:00Z"
         },
         {
-          "title": "霍爾木茲海峽油輪流量降至 13.96 百萬桶/日，較 10 月中逾 20 百萬桶/日高位連跌三週",
-          "originalTitle": "Oil Traders Ignore Growing Threat to Persian Gulf Supply",
-          "url": "https://oilprice.com/Energy/Crude-Oil/Oil-Traders-Ignore-Growing-Threat-to-Persian-Gulf-Supply.html",
-          "source": "OilPrice.com",
+          "title": "Transco 東南擴建早期 50 萬 Dth/d 容量全數認購",
+          "originalTitle": "Transco Fills Early Southeast Natural Gas Capacity as Price Spreads Stay Wide",
+          "url": "https://naturalgasintel.com/news/transco-fills-early-southeast-natural-gas-capacity-as-price-spreads-stay-wide/",
+          "source": "Natural Gas Intelligence",
           "score": 6.0,
-          "blurb": "霍爾木茲流量 13.96 百萬桶/日，較 10 月中高位跌約三成",
-          "summary": "Kpler 數據顯示，11 月第二週霍爾木茲海峽油輪流量降至 13.96 百萬桶/日，為連跌三週的第三段：10 月底 16.03、11 月首週 15.77，起點是 10 月中逾 20 百萬桶/日的戰時高位，即約兩週內回落逾三成。更早的 10 月 8 日，流量曾跌至 10.1 百萬桶/日，為兩個月（即 7 月以來）低點，Kpler 稱之為「回到 9 月均值，但僅為戰前水平的 74%」。同期襲擊升溫：11 月 1 日以來錄得 12 宗油輪遇襲，10 月全月 17 宗；本週初有三艘油輪受損，UKMTO 稱三艘船遭不明彈體擊中。文章論點是交易員仍以 9 月出口反彈及供應過剩預期定價，低估海灣供應風險，並提及特朗普稱美國或於 2027 年重啟對伊朗打擊。需注意：此文為原油口徑，全文無天然氣或 LNG 流量數字，卡塔爾 LNG 僅以網站連結標題出現（南韓要求霍爾木茲重開後優先供氣），無 Bcf/d 數據，對氣體平衡的直接參考價值有限；文中提及中石化本月以來已購入約 2,000 萬桶西非原油（下月交貨）。",
+          "blurb": "Transco 東南早期容量 50 萬 Dth/d 全數認購",
+          "summary": "Transco 已為 Southeast Supply Enhancement（SSE）項目 50 萬 Dth/d（0.5 Bcf/d）的早期服務容量全數找到託運方，認購率達 100%。來源未披露項目總容量或先前利用率，因此無法比較認購增幅。錨定託運方的預留費用與區域天然氣價差的一個比例掛鈎，但報道未給出價差數值。來源亦未提及投產時間，暫屬營運層面事實，而非供需平衡的改變。",
           "dataPoints": [
-            "霍爾木茲海峽油輪流量: 13.96 百萬桶/日（11 月第二週）",
-            "霍爾木茲海峽油輪流量: 15.77 百萬桶/日（11 月第一週）",
-            "霍爾木茲海峽油輪流量: 16.03 百萬桶/日（10 月底）",
-            "霍爾木茲海峽油輪流量: 逾 20 百萬桶/日（10 月中戰時高位）",
-            "霍爾木茲海峽油輪流量: 10.1 百萬桶/日（10 月 8 日，兩個月低點，為戰前水平 74%，與 9 月均值持平）",
-            "油輪遇襲宗數: 12 宗（11 月 1 日以來）",
-            "油輪遇襲宗數: 17 宗（10 月全月）",
-            "中石化西非原油採購: 約 2,000 萬桶（本月以來，下月交貨；相當於中國煉廠典型月度西非採購量）"
+            "早期服務容量: 500,000 Dth/d（0.5 Bcf/d，全數認購）"
           ],
-          "publishedAt": "2026-11-25T23:00:00Z"
-        },
-        {
-          "title": "1月天然氣守 3.65 美元，首錄 24 Bcf 提取；LNG 需求 22.1 Bcf/d 稱創紀錄",
-          "originalTitle": "January Natural Gas Holds $3.65 After First 24 Bcf Draw; Record 22.1 Bcf/d LNG Backs a $3.85 Target - TradingNEWS",
-          "url": "https://news.google.com/rss/articles/CBMixwFBVV95cUxOSHJmRTFyZ3p4YnFzbWtpcjFWWXVNb2lRQ2Vxdm53dWduaUpvRlZQenNCdmZFbXNrRkNscldEZE1RdTFBbkFmNzV2d3NUMXZCZFpreTNhMUJBZEdyMkVsOTNmZF93UGlndVVJWjNCdHg4TklWbHNCMVRNOTZNVC1kVjFGbWhDSGpfckVFcDZuM1ZKc2hDQ2hnOHdld2FrVi0ySXhhby1uTDljYmxDNm83VUJ4cUJIQUNjNmxkSzN5WkpuQ25lTFow?oc=5",
-          "source": "Natural Gas (Google News)",
-          "score": 6.0,
-          "blurb": "1月氣價守 3.65 美元，首錄 24 Bcf 提取",
-          "summary": "首個庫存提取為 24 Bcf，1 月天然氣期貨其後守 3.65 美元/mmBtu，但報道未提供市場預期或五年均值作比較。LNG 需求達 22.1 Bcf/d，報道稱為紀錄高位，亦未提供先前紀錄數值。報道引述 3.85 美元/mmBtu 的價格目標，屬該報道的目標，並非實際成交價。價格起點與日內變動均未披露，因此無法量化「守住」的幅度。",
-          "dataPoints": [
-            "1月天然氣期貨: 3.65 美元/mmBtu（報道未提供起始價或日內變動）",
-            "首個庫存提取: 24 Bcf（報道未提供市場預期或五年均值比較）",
-            "LNG 需求: 22.1 Bcf/d（報道稱為紀錄高位；未提供先前紀錄數值）",
-            "報道價格目標: 3.85 美元/mmBtu（屬報道引述目標，非實際成交價）"
-          ],
-          "publishedAt": "2026-11-25T21:00:36Z"
+          "publishedAt": "2026-11-25T19:45:00Z"
         }
       ]
     }
