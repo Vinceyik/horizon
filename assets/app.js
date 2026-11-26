@@ -360,6 +360,15 @@ function render(data) {
   const total = Number(data.totalFetched) || 0;
   counts.textContent = selected + ' / ' + total + ' 條';
 
+  const usageBox = byId('usage');
+  if (usageBox) {
+    const usage = data.usage || {};
+    const value = Number(usage.total) || 0;
+    usageBox.textContent = value
+      ? '本日用量：' + value.toLocaleString('en-US') + ' tokens'
+      : '';
+  }
+
   const groups = Array.isArray(data.groups) ? data.groups : [];
   const panels = byId('panels');
   panels.replaceChildren();
