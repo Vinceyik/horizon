@@ -301,6 +301,16 @@ class HorizonOrchestrator:
             self.console.print(
                 f"{self.icons['ai']} Analyzed {len(analyzed_items)} items with AI\n"
             )
+            if merged_items and not any(
+                item.processing
+                and item.processing.analysis
+                and item.processing.analysis.score is not None
+                for item in analyzed_items
+            ):
+                raise RuntimeError(
+                    "AI analysis produced no scores for any item; refusing to "
+                    "publish an empty page"
+                )
 
             # 5. Filter, deduplicate, and balance the digest
             filtering_result = await self.select_digest_items(

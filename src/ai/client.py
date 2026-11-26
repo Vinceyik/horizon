@@ -2,6 +2,7 @@
 
 import os
 import re
+import uuid
 from abc import ABC, abstractmethod
 from typing import Any, Dict, List, Optional
 import httpx
@@ -111,6 +112,24 @@ def _is_temperature_unsupported(message: str) -> bool:
         or "only 1 is allowed" in lowered
         # Anthropic: "temperature: Extra inputs are not permitted"
         or "extra inputs are not permitted" in lowered
+    )
+
+
+def _is_response_format_unsupported(message: str) -> bool:
+    lowered = message.lower()
+    return (
+        "response_format" in lowered
+        or "response format" in lowered
+        or "json_object" in lowered
+    ) and any(
+        marker in lowered
+        for marker in (
+            "unsupported",
+            "not support",
+            "extra inputs",
+            "unknown parameter",
+            "invalid",
+        )
     )
 
 
@@ -271,6 +290,13 @@ class OpenAIClient(AIClient):
         base_url = self._resolve_base_url(config)
         if base_url:
             kwargs["base_url"] = base_url
+            if "opencode.ai" in base_url:
+                # The OpenCode Console gateway requires a stable session id
+                # and asks clients to identify themselves.
+                kwargs["default_headers"] = {
+                    "x-opencode-session": f"ses_{uuid.uuid4().hex}",
+                    "User-Agent": "horizon-briefing/1.0",
+                }
 
         self.client = AsyncOpenAI(**kwargs)
         self.model = config.model
@@ -280,6 +306,7 @@ class OpenAIClient(AIClient):
         # Some newer models (e.g. Claude Opus 4.7 on Bedrock Converse) reject
         # `temperature`. We learn this on first 400 and stop sending it.
         self._supports_temperature = True
+        self._supports_response_format = True
         self._use_max_completion_tokens = any(
             config.model.startswith(prefix)
             for prefix in self._MODELS_REQUIRING_MAX_COMPLETION_TOKENS
@@ -330,6 +357,7 @@ class OpenAIClient(AIClient):
         while True:
             include_temperature = self._supports_temperature
             use_max_completion_tokens = self._use_max_completion_tokens
+            include_response_format = self._supports_response_format
             try:
                 response = await self._do_request(
                     system=system,
@@ -338,6 +366,7 @@ class OpenAIClient(AIClient):
                     max_tokens=max_tokens,
                     include_temperature=include_temperature,
                     use_max_completion_tokens=use_max_completion_tokens,
+                    include_response_format=include_response_format,
                 )
                 break
             except OpenAIStatusError as exc:
@@ -345,6 +374,9 @@ class OpenAIClient(AIClient):
                     raise
                 if include_temperature and _is_temperature_unsupported(str(exc)):
                     self._supports_temperature = False
+                    continue
+                if include_response_format and _is_response_format_unsupported(str(exc)):
+                    self._supports_response_format = False
                     continue
                 if retried_tokens or not _is_token_limit_unsupported(str(exc), use_max_completion_tokens):
                     raise
@@ -368,6 +400,7 @@ class OpenAIClient(AIClient):
         max_tokens: int,
         include_temperature: bool,
         use_max_completion_tokens: bool,
+        include_response_format: bool = True,
     ):
         request_kwargs = {
             "model": self.model,
@@ -380,7 +413,7 @@ class OpenAIClient(AIClient):
         request_kwargs[token_param] = max_tokens
         if include_temperature:
             request_kwargs["temperature"] = temperature
-        if self.provider not in self._NO_RESPONSE_FORMAT:
+        if include_response_format and self.provider not in self._NO_RESPONSE_FORMAT:
             request_kwargs["response_format"] = {"type": "json_object"}
         if self.config.extra_body:
             request_kwargs["extra_body"] = _chat_extra_body(

@@ -3,6 +3,8 @@ import json
 from datetime import datetime, timezone
 from types import SimpleNamespace
 
+import pytest
+
 from src.models import (AIConfig, CategoryGroupConfig, ClassificationResult,
                         Config, ContentAnalysis, ContentArtifact, ContentBlock,
                         ContentItem, DigestConfig, ProcessingResult,
@@ -72,6 +74,29 @@ def test_quiet_run_publishes_an_empty_page(tmp_path, monkeypatch):
     data = json.loads((tmp_path / "data.json").read_text(encoding="utf-8"))
     assert [group["status"] for group in data["groups"]] == ["empty", "empty", "empty"]
     assert (tmp_path / "archive" / (data["date"] + ".json")).exists()
+
+
+def test_run_fails_when_analysis_scored_nothing(tmp_path, monkeypatch):
+    monkeypatch.setenv("HORIZON_SITE_DIR", str(tmp_path))
+    orchestrator = HorizonOrchestrator(make_config(), SimpleNamespace())
+    item = make_item(True)
+    item.processing.analysis = ContentAnalysis(
+        score=None, reason="failed", summary="x"
+    )
+
+    async def fetch(since):
+        return [item]
+
+    async def analyze(items):
+        return items
+
+    orchestrator.fetch_all_sources = fetch
+    orchestrator.analyze_items = analyze
+
+    with pytest.raises(RuntimeError):
+        asyncio.run(orchestrator.run())
+
+    assert not (tmp_path / "data.json").exists()
 
 
 def test_publish_site_drops_items_without_this_language(tmp_path, monkeypatch):
