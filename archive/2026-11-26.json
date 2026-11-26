@@ -1,93 +1,132 @@
 {
-  "generatedAt": "2026-11-26T21:03:51+08:00",
+  "generatedAt": "2026-11-26T21:21:54+08:00",
   "date": "2026-11-26",
   "language": "zh-Hant",
-  "totalFetched": 176,
-  "selected": 6,
+  "totalFetched": 182,
+  "selected": 8,
   "groups": [
     {
       "id": "fashion",
       "name": "時尚與精品",
       "overview": "",
-      "status": "empty",
-      "note": "今日無新內容",
-      "items": []
-    },
-    {
-      "id": "ai",
-      "name": "AI 前沿",
-      "overview": "今日最值得關注的是 Linux 核心 NFS 伺服器（nfsd）一個潛伏約十二年的漏洞 CVE-2026-99362，攻擊者毋須通過認證即可取得遠端 root 權限；社羣討論指影響範圍主要集中在 NFS 4.1 及 4.2 協定，而非全部",
       "status": "ok",
       "note": null,
       "items": [
         {
-          "title": "Linux 核心 nfsd 被揭 12 年前漏洞 CVE-2026-99362：未認證即可遠端 root",
-          "originalTitle": "Nfs2root: A 12-year-old pre-auth remote root in the Linux kernel's NFS server",
-          "url": "https://opensec.in/blog/nfs2root-cve-2026-99362",
-          "source": "hackernews",
-          "score": 8.0,
-          "blurb": "nfsd 舊漏洞免認證得 root，維運者須收窄 NFS 版本。",
-          "summary": "有研究文章披露 Linux 核心 NFS 伺服器（nfsd）一個潛伏約 12 年的漏洞，編號 CVE-2026-99362，攻擊者可在未通過認證的情況下取得遠端 root。受影響面在社羣討論中主要指向 NFS 4.1 及 4.2 協定，而非全部 NFS 版本；原始文章在現有資料中未提供完整修補細節或官方修補版本資訊，仍需向發行版確認。對維運 nfsd 的工程師而言，可即時做的是收窄協定版本：先停 nfsd，再將 \"-4.1 -4.2\" 寫入 /proc/fs/nfsd/versions，此設定重開機即失效，屬臨時緩解。另一方向是在網絡層過濾或加包裝層，例如以 spiped 轉發，或以可編程防火牆（含 XDP 方案）加入封鎖規則。社羣中亦有意見質疑 NFS 這類老協定是否應繼續留在覈心，但這屬觀點而非技術結論。",
-          "dataPoints": [
-            "漏洞潛伏期: 約 12 年（由披露時回溯）",
-            "披露日期: 2026-11-25",
-            "受影響協定: NFS 4.1、4.2（社羣討論所指，非全部版本）"
-          ],
-          "publishedAt": "2026-11-25T20:35:50Z"
-        },
-        {
-          "title": "Minipg：把 PostgreSQL 打包成單一可執行檔",
-          "originalTitle": "Minipg: PostgreSQL as a Single Executable",
-          "url": "https://progrium.github.io/minipg/",
-          "source": "hackernews",
+          "title": "Hodinkee 與 Pitt、Fincher 拆解《Cliff Booth》戲中腕錶",
+          "originalTitle": "Talking Watches: With Brad Pitt And David Fincher",
+          "url": "https://www.hodinkee.com/articles/with-brad-pitt-and-david-fincher",
+          "source": "Hodinkee",
           "score": 7.0,
-          "blurb": "單一執行檔打包 Postgres，讓本機開發省去 Docker 依賴。",
-          "summary": "Minipg 把 PostgreSQL 打包成一個單一可執行檔，並附帶生命週期管理，目標是讓開發者在沒有 Docker 的情況下於本機或小型自架環境跑 Postgres。據社羣討論，它透過 h9（一個年輕的嵌入式 hypervisor 工具）直接執行 Postgres 的 Alpine 映像，而非呼叫 Docker。指令會按需啟動一個共享的背景伺服器，並在閒置約一分鐘後自動關閉，這是社羣留言所述的預設行為。對建置者而言，可以用一條指令就取得真正的 Postgres，而不是 SQLite 或 PGLite 之類的替代品，之後再視需要把同一個資料庫搬去獨立伺服器。需要注意：來源頁面未提供內容，目前未見版本號、映像版本、支援平臺、效能數據或獨立評測，上述行為細節主要來自社羣描述。",
-          "dataPoints": [],
-          "publishedAt": "2026-11-26T03:00:48Z"
+          "blurb": "Cloister 為戲製作白金 Explorer，Pitt 看中取用。",
+          "summary": "Hodinkee 的 Talking Watches 請來 Brad Pitt、David Fincher 與 Cloister Watch Co. 的 Cooper Zelnick，逐隻講解《The Further Mis-Adventures of Cliff Booth》的戲中腕錶。戲中 Cliff Booth 佩戴 Cloister 訂製的白金 Rolex Explorer 1016，配白琺瑯面，錶帶經改裝加入彈簧；品牌稱這是虛構但可存在於 1977 年荷里活的版本。其他角色腕錶包括三隻 Jaeger-LeCoultre Memovox E873（兩隻實錶加一隻塑料替身）、一隻錶面有裂痕的白金 Patek Philippe Calatrava 570、Cartier Tank Arrondie、Rolex GMT-Master II 1675/8、Audemars Piguet Royal Oak 5402，以及 Rolex Pre-Daytona 6034。電影今日在 IMAX 上映，12 月 23 日於 Netflix 上線。",
+          "dataPoints": [
+            "IMAX 上映: 2026 年 11 月 25 日",
+            "Netflix 上線: 2026 年 12 月 23 日",
+            "JLC Memovox E873 版本: 3 個（2 隻實錶、1 隻道具塑膠替身）"
+          ],
+          "publishedAt": "2026-11-25T12:02:13Z"
         },
         {
-          "title": "Hugging Face 與 ggml-org 推出 llama.cpp × AMD 效能基準儀錶板",
+          "title": "Christopher Bailey 收購 Burleigh Pottery：Denby 清盤後接手 175 年陶瓷廠",
+          "originalTitle": "Christopher Bailey on His Post-Burberry Reinvention at the Historic Burleigh Pottery",
+          "url": "https://www.vogue.com/article/christopher-bailey-burleigh-pottery",
+          "source": "Vogue",
+          "score": 6.0,
+          "blurb": "Denby 清盤後，Bailey 聯同私人投資者接手 Burleigh 及其工匠。",
+          "summary": "Christopher Bailey 今年 6 月與一小羣私人投資者收購 Burleigh Pottery。該廠位於 Stoke-on-Trent 的 Middleport Pottery，廠房建於 1888 年，屬 Grade II* 列級建築；母公司 Denby 早前進入破產管理程序，當時有 62 個職位受威脅。Burleigh 於 1851 年以 Hulme & Booth 之名創立，1903 年改用現名；據公司所述，它是全球唯一仍使用釉下轉印（underglaze tissue printing）的陶瓷廠，做法是以銅滾筒雕版印在薄紙上，再由工匠逐件貼上素坯。廠內存有逾 25,000 個母模及逾 5,000 件雕版，Bailey 表示要先把檔案數碼化，並研究在現有花卉葉紋之外擴闊圖案與配色。交易未披露金額，Bailey 在訪問中稱自己現時沒有支薪。",
+          "dataPoints": [
+            "受威脅職位: 62 個（Denby 清盤時）",
+            "母模收藏: 逾 25,000 個",
+            "雕版檔案: 逾 5,000 件",
+            "廠房建成: 1888 年（Grade II* 列級）",
+            "廠房拯救資金: 900 萬英鎊（2010 年，王儲重建信託購入）",
+            "創立年份: 1851 年（初名 Hulme & Booth）"
+          ],
+          "publishedAt": "2026-11-26T10:00:00Z"
+        },
+        {
+          "title": "二手奢侈品成節日送禮選項：平臺搜尋與調查數據一覽",
+          "originalTitle": "The Secondhand Gifting Conundrum",
+          "url": "https://www.vogue.com/article/the-secondhand-gifting-conundrum",
+          "source": "Vogue",
+          "score": 6.0,
+          "blurb": "禮物買家轉向轉售平臺，信任與認證成為成交關鍵。",
+          "summary": "Vogue 刊出報道，指二手奢侈品正由小眾收藏變成節日送禮選項，文章並非圍繞特定新品或拍賣，而是以平臺搜尋數據、消費者調查與策展人報價描述這個轉變。平臺數據顯示秋季需求加速：Vinted 稱 11 月聖誕禮物搜尋同比升 35%，Depop 稱「Christmas gifts」搜尋同比升 248%。調查方面，Deloitte  holiday 報告指 29% 美國消費者可能購買二手奢侈品作聖誕禮物；eBay 的 re-commerce 報告則指 47% 英國 18 至 45 歲人士願意送出二手物品。波士頓諮詢公司與 Vestiaire Collective 於 2025 年估算全球二手市場規模為 2,100 至 2,200 億美元，並預測 2030 年達 3,200 至 3,600 億美元。報道把重點放在價位分佈與平臺信任問題：The RealReal 行政總裁 Rati Sahi Levesque 稱禮物消費集中於 250 美元以下設計師配飾與逾 10,000 美元收藏級單品，而 Resee、The Vintage Project 等賣家則以出生年份、來源與認證作賣點。",
+          "dataPoints": [
+            "The RealReal 禮物消費區間: 250 美元以下配飾至逾 10,000 美元收藏級單品（同一平臺兩端）",
+            "Vinted 聖誕禮物搜尋: 同比升 35%（2026 年 11 月）",
+            "Depop「Christmas gifts」搜尋: 同比升 248%，過去一個月再升 321%",
+            "Coachtopia 搜尋: 過去一個月升 132%",
+            "tall Uggs 搜尋: 過去一個月升 96%",
+            "Deloitte 調查: 29% 美國消費者或買二手奢侈品作聖誕禮物",
+            "Ebay 調查: 47% 英國 18 至 45 歲人士願意送二手禮物",
+            "全球二手市場估值: 2,100 至 2,200 億美元（2025 年，BCG 與 Vestiaire Collective）",
+            "2030 年市場預測: 3,200 至 3,600 億美元",
+            "Vinted 平均成人時裝售價: 較建議零售價低 72%",
+            "Vinted 會員認為可接觸較高質素或設計師品牌: 69%",
+            "The Vintage Project 送禮預算: 約 1,000 美元",
+            "Evangeline Li 每份禮物花費: 約 300 至 1,000 英鎊"
+          ],
+          "publishedAt": "2026-11-26T05:30:00Z"
+        },
+        {
+          "title": "Burberry 170 週年找 Celia Birtwell 合作印花，Daniel Lee 與 Anna Wintour 談品牌轉型",
+          "originalTitle": "“Focus on Learning”: Career Lessons With Burberry’s Daniel Lee and Anna Wintour",
+          "url": "https://www.vogue.com/article/focus-on-learning-career-lessons-with-burberrys-daniel-lee-and-anna-wintour",
+          "source": "Vogue",
+          "score": 5.0,
+          "blurb": "Burberry 170 週年印花加入 Celia Birtwell 手筆，Lee 稱轉型着重延續。",
+          "summary": "Burberry 創意總監 Daniel Lee 與 Condé Nast 首席內容總監 Anna Wintour 在紐約 Vogue Business Global Summit 同臺對談，觸及 Lee 的成長背景、Burberry 的轉型，以及他首度與紡織設計師 Celia Birtwell 的創作合作。Lee 稱 Burberry 今年慶祝品牌 170 週年，他邀請 85 歲的 Birtwell 以品牌格紋、蘇格蘭格子及英式花卉重新創作圖案；Birtwell 在會面上主動提出以格紋為起點，並參考 David Hockney 畫桌布格紋的透視方式。談到由 CEO Joshua Schulman 主導的轉型，Lee 稱對方為品牌帶來紀律，並在到任時提出清晰的價格架構；Wintour 則形容 Burberry 的復蘇由 Lee 的創意帶動。Wintour 在官方公佈前預告服裝學院 2027 年展覽主題為「extraORDINARY」，並確認 Vogue World 下一站為 9 月的三藩市。對談未提及具體產品名稱、材質、價格或發售日期。",
+          "dataPoints": [],
+          "publishedAt": "2026-11-26T11:35:51Z"
+        }
+      ]
+    },
+    {
+      "id": "ai",
+      "name": "AI 前沿",
+      "overview": "",
+      "status": "ok",
+      "note": null,
+      "items": [
+        {
+          "title": "NVIDIA 為 Nemotron 3.5 Parse 開放三個訓練資料集、微調配方與 DFlash2 推測解碼器",
+          "originalTitle": "Building on Nemotron 3.5 Parse: Open Data, Fine-Tuning, and Faster Inference",
+          "url": "https://huggingface.co/blog/nvidia/building-on-nemotron-35-parse-open-data-fine-tunin",
+          "source": "Hugging Face Blog",
+          "score": 8.0,
+          "blurb": "Parse 3.5 開放三個訓練集與 GRPO 微調配方",
+          "summary": "NVIDIA 在 Nemotron 3.5 Parse（把頁面影像轉成結構化資料的文件解析模型）之上，開源三個訓練用合成資料集、公開一套微調配方，並加入 DFlash2 推測解碼器加快推論。三個資料集為 Synthetic Charts V1（998 萬例）、Synthetic Tables V1（100 萬例）、OCR Synthetic Multilingual v2（790 萬例），每份都附影像、標註、生成文件與訓練格式，可直接用於微調或產生特定文件類型、語言的變體。NVIDIA 以同一評估設定比較 SFT 與 GRPO 的開發檢查點（非最終發布模型）：整體分數由 66.24 升至 71.38，被標記為重複迴圈的頁面由 126 降至 29，達到 9,000 token 上限的輸出由 185 降至 35。架構上改為 NaViT 動態矩形輸入、把壓縮後的視覺 token 當作 causal prefix、解碼器用 GQA-8（16 個 query head、8 個 key/value head），DFlash2 每次最多草稿 32 個 token，實測平均接受約 14 個。在單張 H200、BF16 的原生單次推論測試中，DFlash2 相對關閉推測解碼的 Parse 3.5，併發 1 時吞吐為 7.62 倍、併發 512 時為 1.52 倍（13.48 升至 20.44 頁/秒，Parse 2.0 為 2.98 頁/秒）。微調配方（配對資料生成、NeMo Automodel SFT、NeMo RL GRPO，並以 vLLM 產生候選答案）在牙科表單範例上，pass@1 由 0.00% 升至 SFT 後 95.85%、RLVR 後 96.58%（256 份留出表單、每頁 8 個樣本）；以上皆為 NVIDIA 公佈的數字。",
+          "dataPoints": [
+            "Synthetic Charts V1: 998 萬個範例（開源）",
+            "Synthetic Tables V1: 100 萬個範例（開源）",
+            "OCR Synthetic Multilingual v2: 790 萬個範例（開源）",
+            "整體分數（SFT 對 GRPO 開發檢查點）: 66.24 → 71.38",
+            "重複迴圈標記頁數: 126 → 29（約減 77%）",
+            "達 9,000 token 上限輸出數: 185 → 35",
+            "表格分數: +5.18（GRPO 相對 SFT）",
+            "圖表分數: +4.15（GRPO 相對 SFT）",
+            "DFlash2 草稿長度: 最多 32 個 token，平均接受約 14 個",
+            "吞吐（併發 1，單張 H200 BF16）: 7.62 倍（相對關閉推測解碼的 Parse 3.5）",
+            "吞吐（併發 512）: 13.48 → 20.44 頁/秒（Parse 2.0 為 2.98 頁/秒）",
+            "相對 Parse 2.0 吞吐（併發 512）: 4.53 倍（無推測解碼）、6.86 倍（DFlash2）",
+            "二次掃描增益: ParseBench +2.18 分（相對單次掃描）",
+            "三次掃描增益: ParseBench +2.46 分（相對單次掃描）",
+            "牙科表單 pass@1: 0.00%（基礎模型）→ 95.85%（SFT）→ 96.58%（RLVR）"
+          ],
+          "publishedAt": "2026-11-26T05:05:36Z"
+        },
+        {
+          "title": "llama.cpp × AMD 基準儀錶板上線，公開每週測試數據",
           "originalTitle": "Introducing the llama.cpp benchmark dashboard for AMD Ryzen and Radeon",
           "url": "https://huggingface.co/blog/ggml-org/llamacpp-amd-bench",
           "source": "Hugging Face Blog",
           "score": 7.0,
-          "blurb": "本地推論開發者可直接查閱 AMD 上 llama.cpp 各 build 的吞吐數據。",
-          "summary": "Hugging Face 同 ggml-org 公開咗 llama.cpp × AMD Benchmark 儀錶板，喺 Hugging Face 上可以按硬件、模型同 llama.cpp build 追蹤本機推論吞吐。暫時支援兩款硬件：Radeon 8060S（gfx1151）同 Radeon AI Pro R9700S（gfx1201）。儀錶板分三個頁：Overview 比較同一硬件／模型／build 下唔同量化；Build history 追蹤同一硬件／模型／量化跨 build 嘅變化；Context scaling 睇上下文變長時 TG 吞吐嘅走勢。量測方式公開：用 llama-install.sh 派發嘅預建 binary，配合 llama-bench，Flash Attention 開同關各跑，每個配置重複 10 次，gfx1151 同 gfx1201 嘅 workflow 每週排程執行。原始數據放喺公開嘅 ggml-org/install.sh-benches-data Storage Bucket，標準結果路徑為 <build>/<hardware>/<model>/<quant>.jsonl，workload sweep 則用 <quant>-tg.jsonl。 builder 而家可以自行下載數據重畫圖表，或者同自己部機嘅本地 run 對照；不過官方今次只係公開量測框架同數據檔，未有用文字公佈任何具體效能數字或新舊版本對比。",
-          "dataPoints": [
-            "硬件: Radeon 8060S（gfx1151）、Radeon AI Pro R9700S（gfx1201）",
-            "測試負載: PP512 處理 512 個輸入 token；TG128 生成 128 個 token（兩者均由 n_depth=0 開始）",
-            "量測指標: 平均吞吐 avg_ts，單位 tokens/sec",
-            "重複次數: 每個配置 10 次（Flash Attention 開與關各跑）",
-            "更新頻率: gfx1151 與 gfx1201 workflow 每週排程",
-            "已公佈效能分數: 無，只提供可下載的 .jsonl 數據檔"
-          ],
+          "blurb": "AMD 本地推論開發者可比對不同量化與版本的速度。",
+          "summary": "llama.cpp × AMD Benchmark 公開儀錶板已在 Hugging Face 上線，讓開發者追蹤 AMD 硬件上 llama.cpp 的提示處理（PP512）與文字生成（TG128）吞吐量，單位為 tokens/s。目前硬件選項只有 Radeon 8060S（gfx1151）與 Radeon AI Pro R9700S（gfx1201），可切換模型、build 與量化，並查看量化比較、build 歷史及 context 擴展下的生成速度。測試由每週排程的 gfx1151 與 gfx1201 工作流執行，使用 llama-install.sh 的預建二進位與 llama-bench，Flash Attention 開與關各跑，每個設定重複 10 次。原始結果公開在 ggml-org/install.sh-benches-data Storage Bucket，標準結果路徑為 <build>/<hardware>/<model>/<quant>.jsonl，開發者可自行重繪圖表或與本地跑分比對。模型集包含 Inkling 2 Mini、Qwen、Gemma、gpt-oss 與 LFM（dense 與 MoE），量化涵蓋 Q4_K_M、Q8_0、BF16、F16；來源未提供具體效能分數或基準比較。",
+          "dataPoints": [],
           "publishedAt": "2026-11-26T11:37:17Z"
-        },
-        {
-          "title": "NVIDIA 公開 Nemotron 3.5 Parse 訓練數據集、SFT/RLVR 微調配方與 DFlash2 加速",
-          "originalTitle": "Building on Nemotron 3.5 Parse: Open Data, Fine-Tuning, and Faster Inference",
-          "url": "https://huggingface.co/blog/nvidia/building-on-nemotron-35-parse-open-data-fine-tunin",
-          "source": "Hugging Face Blog",
-          "score": 7.0,
-          "blurb": "三個合成數據集加 SFT/RLVR 配方，開發者可自建文件解析模型",
-          "summary": "NVIDIA 與 Hugging Face 為 Nemotron 3.5 Parse（將頁面影像轉成結構化輸出的緊湊型文件模型）補上三項配套：開放訓練數據集、微調配方，以及 DFlash2 投機解碼加速器。開放的是 Synthetic Charts V1（9.98M 範例）、Synthetic Tables V1（1M）與 OCR Synthetic Multilingual v2（7.9M），每份附影像、標註、生成文件與訓練格式，可直接用來微調或生成針對特定文件類型／語言的變體。訓練分兩段：先以 SFT 學版面、表格、圖表與多語文件，再用 GRPO 的 RLVR 以可驗證獎勵（正確系列與數值、可用結構、不重複生成）改善一致性；配方走 NeMo Automodel SFT、NeMo RL GRPO，並用 vLLM 產生候選答案。架構由固定 2048×1664 畫布與 encoder-decoder cross-attention，改為 NaViT 動態矩形輸入、壓縮視覺 token 作因果前綴、GQA-8（16 個 query head、8 個 KV head），並可外掛 DFlash2 草稿模型一次提議最多 32 個 token。NVIDIA 自行量測（單張 H200、BF16、2,078 頁）指 DFlash2 於並發 1 時吞吐為關閉投機解碼 Parse 3.5 的 7.62×、並發 512 時 1.52×，目前未見獨立重現。",
-          "dataPoints": [
-            "Synthetic Charts V1: 9.98M 個範例（開放數據集）",
-            "Synthetic Tables V1: 1M 個範例（開放數據集）",
-            "OCR Synthetic Multilingual v2: 7.9M 個範例（開放數據集）",
-            "DFlash2 草稿長度: 最多 32 個 token，平均約 14 個被接受，每次驗證約前進 15 個輸出 token",
-            "吞吐提升: 並發 1 為 7.62×、並發 512 為 1.52×（對比關閉投機解碼的 Parse 3.5）",
-            "並發 512 吞吐: 20.44 頁/秒（DFlash2）、13.48 頁/秒（無投機解碼）、2.98 頁/秒（Parse 2.0）",
-            "對 Parse 2.0 倍數: 4.53×（無投機解碼）、6.86×（DFlash2）",
-            "基準環境: 單張 H200、BF16、2,078 頁（Parse 2.0 單次、Parse 3.5 三次中位數）",
-            "GRPO 對比: 被標記迴圈的頁數由 126 降至 29（約少 77%）",
-            "GRPO 對比: 觸及 9,000 token 上限的輸出由 185 降至 35",
-            "內部評分: 66.24 → 71.38（表格 +5.18、圖表 +4.15，開發檢查點）",
-            "牙科表單 pass@1: 0.00% → 95.85%（SFT 後）→ 96.58%（加 RLVR），256 份留出表單、每頁 8 次取樣",
-            "多次掃描增益: 兩次掃描 +2.18、三次掃描 +2.46 ParseBench 分（對比單次掃描）"
-          ],
-          "publishedAt": "2026-11-26T05:05:36Z"
         }
       ]
     },
@@ -99,37 +138,110 @@
       "note": null,
       "items": [
         {
-          "title": "美國 LNG 進料氣提名估算 21.5 Bcf/d，略高於前紀錄 21.2",
+          "title": "美國 LNG 原料氣提名估計達 21.5 Bcf/d，略高於 11 月 15 日 21.2 Bcf/d 紀錄",
           "originalTitle": "US LNG Feedgas Tests New High Near 21.5 Bcf/d as Intraday Cuts Cloud Picture",
           "url": "https://naturalgasintel.com/news/us-lng-feedgas-tests-new-high-near-215-bcfd-as-intraday-cuts-cloud-picture/",
           "source": "Natural Gas Intelligence",
           "score": 8.0,
-          "blurb": "LNG 進料氣 21.5 Bcf/d，較前紀錄高 0.3",
-          "summary": "美國 LNG 進料氣提名估算為 21.5 Bcf/d（週三天然氣日），較 11 月 15 日創下的前紀錄 21.2 Bcf/d 高 0.3 Bcf/d，數據來自 NGI Entropic Analytics。上述數字為估算值。報道標題同時提及日內削減令讀數不明朗，惟來源未提供削減量或受影響終端細節。",
+          "blurb": "LNG 原料氣 21.5 Bcf/d，較前紀錄 21.2 高 0.3。",
+          "summary": "美國 LNG 原料氣提名量估計為 21.5 Bcf/d（週三天然氣日），略高於 11 月 15 日創下的 21.2 Bcf/d 舊紀錄，高出 0.3 Bcf/d。數據來自 NGI 旗下 Entropic Analytics，屬估計值而非官方實際統計。報道指日內出現下調，令紀錄水平仍存變數。",
           "dataPoints": [
-            "美國 LNG 進料氣提名: 21.5 Bcf/d（週三天然氣日；前紀錄 21.2，11 月 15 日）",
-            "較前紀錄: +0.3 Bcf/d"
+            "LNG 原料氣提名: 21.5 Bcf/d（週三天然氣日，估計值）",
+            "前紀錄: 21.2 Bcf/d（11 月 15 日）",
+            "較前紀錄變動: +0.3 Bcf/d",
+            "數據來源性質: NGI Entropic Analytics 估計，非官方實際值"
           ],
           "publishedAt": "2026-11-25T18:37:00Z"
         },
         {
-          "title": "EIA：天然氣庫存淨提取 24 BCF，為本季首次提取",
+          "title": "EIA：截至 11 月 20 日止週天然氣庫存淨減 24 BCF，為本季首次抽氣",
           "originalTitle": "Natural Gas Market Serves Up First Storage Withdrawal of Season Before Thanksgiving Break",
           "url": "https://naturalgasintel.com/news/natural-gas-market-serves-up-first-storage-withdrawal-of-season-before-thanksgiving-break/",
           "source": "Natural Gas Intelligence",
-          "score": 7.0,
-          "blurb": "EIA：天然氣庫存淨減 24 BCF，比較基準未載",
-          "summary": "EIA 於週三公佈，截至 11 月 20 日當週，美國地下天然氣庫存淨提取 24 BCF，為本季首次提取。原文稱該讀數「符合」（matching the …）某項比較，但文本在該處截斷，具體比較基準（市場預期或前期估值）未完整披露，故無法確認較預期或前值之差。價格與供需機制方面，原文可見內容未提供相關說明，亦未提及天氣、產量、LNG 進料或管道維護等因素。提取量本身屬季節性常規水平，來源摘要亦如此界定，並非改變平衡的事件。",
+          "score": 6.0,
+          "blurb": "EIA：庫存減 24 BCF，本季首次淨抽氣",
+          "summary": "EIA 週三公佈，截至 11 月 20 日止一週，美國地下天然氣庫存淨減少 24 BCF，為本季首次淨抽氣。來源摘要僅顯示該數字與某個比較對象「相符」（matching the…），但該句在可見內容中被截斷，未能確認具體基準是市場預期、前一週還是五年均值，故不引述比較數字。來源未提供天氣、產量、LNG 原料氣或管道檢修等機制說明，本條只能確認抽氣量與季節性時點。",
           "dataPoints": [
-            "庫存變動: -24 BCF（截至 11 月 20 日當週，淨提取）",
-            "比較基準: 未披露（原文截斷於「matching the …」）",
-            "數據來源: EIA（經 Natural Gas Intelligence 報道）",
-            "季節性意義: 本季首次庫存提取"
+            "庫存變動: -24 BCF（EIA，截至 11 月 20 日止週）",
+            "季節性: 本季首次淨抽氣",
+            "比較基準: 來源摘要截斷，未提供可核實基準"
           ],
           "publishedAt": "2026-11-25T17:41:00Z"
         }
       ]
     }
   ],
-  "failures": []
+  "failures": [],
+  "sources": [
+    {
+      "group": "fashion",
+      "name": "Hodinkee",
+      "url": "https://www.hodinkee.com/articles.rss"
+    },
+    {
+      "group": "fashion",
+      "name": "Hypebeast",
+      "url": "https://hypebeast.com/feed"
+    },
+    {
+      "group": "fashion",
+      "name": "Vogue",
+      "url": "https://www.vogue.com/feed/rss"
+    },
+    {
+      "group": "ai",
+      "name": "OpenAI Blog",
+      "url": "https://openai.com/blog/rss.xml"
+    },
+    {
+      "group": "ai",
+      "name": "Hugging Face Blog",
+      "url": "https://huggingface.co/blog/feed.xml"
+    },
+    {
+      "group": "ai",
+      "name": "Anthropic News (Google News)",
+      "url": "https://news.google.com/rss/search?q=Anthropic+when:2d&hl=en-US&gl=US&ceid=US:en"
+    },
+    {
+      "group": "ai",
+      "name": "GitHub Trending",
+      "url": "https://mshibanami.github.io/GitHubTrendingRSS/daily/all.xml"
+    },
+    {
+      "group": "natgas",
+      "name": "Natural Gas Intelligence",
+      "url": "https://www.naturalgasintel.com/feed/"
+    },
+    {
+      "group": "natgas",
+      "name": "OilPrice.com",
+      "url": "https://oilprice.com/rss/main"
+    },
+    {
+      "group": "natgas",
+      "name": "EIA Today in Energy",
+      "url": "https://www.eia.gov/rss/todayinenergy.xml"
+    },
+    {
+      "group": "natgas",
+      "name": "Natural Gas (Google News)",
+      "url": "https://news.google.com/rss/search?q=%22natural+gas%22+Henry+Hub+when:2d&hl=en-US&gl=US&ceid=US:en"
+    },
+    {
+      "group": "ai",
+      "name": "Hacker News",
+      "url": "https://news.ycombinator.com"
+    },
+    {
+      "group": "ai",
+      "name": "vllm",
+      "url": "https://github.com"
+    },
+    {
+      "group": "ai",
+      "name": "sglang",
+      "url": "https://github.com"
+    }
+  ]
 }

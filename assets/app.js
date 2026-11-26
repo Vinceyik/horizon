@@ -61,6 +61,94 @@ function initTheme() {
   }
 }
 
+function renderSources(list, groups) {
+  const box = byId('sources-list');
+  if (!box) return;
+  box.replaceChildren();
+  if (!Array.isArray(list) || !list.length) {
+    box.appendChild(el('p', 'muted', '未設定來源。'));
+    return;
+  }
+  const names = new Map((groups || []).map((group) => [group.id, group.name]));
+  const byGroup = new Map();
+  list.forEach((source) => {
+    const key = source.group || 'other';
+    if (!byGroup.has(key)) byGroup.set(key, []);
+    byGroup.get(key).push(source);
+  });
+  byGroup.forEach((entries, key) => {
+    const block = el('div', 'sources-group');
+    block.appendChild(el('h3', null, names.get(key) || key));
+    const ul = el('ul');
+    entries.forEach((source) => {
+      const li = el('li');
+      const url = safeUrl(source.url);
+      if (url) {
+        const link = el('a', null, source.name || url);
+        link.href = url;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        li.appendChild(link);
+      } else {
+        li.textContent = source.name || '';
+      }
+      ul.appendChild(li);
+    });
+    block.appendChild(ul);
+    box.appendChild(block);
+  });
+}
+
+/* ---------- preferences ---------- */
+
+const PREFS_KEY = 'briefing-prefs';
+
+function loadPrefs() {
+  try {
+    return JSON.parse(localStorage.getItem(PREFS_KEY)) || {};
+  } catch (err) {
+    return {};
+  }
+}
+
+function savePrefs(prefs) {
+  try {
+    localStorage.setItem(PREFS_KEY, JSON.stringify(prefs));
+  } catch (err) {
+    /* storage disabled */
+  }
+}
+
+function applyPrefs(prefs) {
+  document.body.classList.toggle('hide-original', prefs.hideOriginal === true);
+  document.body.classList.toggle('compact', prefs.compact === true);
+}
+
+function initPrefs() {
+  const prefs = loadPrefs();
+  applyPrefs(prefs);
+  const original = byId('pref-original');
+  const compact = byId('pref-compact');
+  if (original) {
+    original.checked = prefs.hideOriginal !== true;
+    original.addEventListener('change', () => {
+      const next = loadPrefs();
+      next.hideOriginal = !original.checked;
+      savePrefs(next);
+      applyPrefs(next);
+    });
+  }
+  if (compact) {
+    compact.checked = prefs.compact === true;
+    compact.addEventListener('change', () => {
+      const next = loadPrefs();
+      next.compact = compact.checked;
+      savePrefs(next);
+      applyPrefs(next);
+    });
+  }
+}
+
 /* ---------- formatting ---------- */
 
 function formatTimestamp(iso) {
@@ -282,6 +370,7 @@ function render(data) {
   }
 
   buildTabs(groups);
+  renderSources(data.sources, groups);
   renderFailures(data.failures);
 
   const wanted = location.hash.slice(1);
@@ -365,6 +454,7 @@ async function load() {
 }
 
 initTheme();
+initPrefs();
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', load);
 } else {
