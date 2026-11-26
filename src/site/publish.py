@@ -129,6 +129,7 @@ def build_payload(
     language: str,
     now: datetime,
     sources: Optional[list[dict]] = None,
+    usage: Optional[dict] = None,
 ) -> SitePayload:
     """Assemble the payload, always emitting every configured group."""
     buckets = group_items(items, groups)
@@ -166,6 +167,7 @@ def build_payload(
         groups=site_groups,
         failures=list(failures or []),
         sources=list(sources or []),
+        usage=dict(usage or {}),
     )
 
 

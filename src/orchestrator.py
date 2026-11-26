@@ -44,6 +44,16 @@ from .site.publish import (build_payload, configured_sources, group_failure_map,
                            group_items, site_groups, write_payload)
 
 
+def _site_usage() -> dict:
+    """This run's LLM usage, for the page footer."""
+    snapshot = get_usage_snapshot()
+    return {
+        "input": snapshot.total_input_tokens,
+        "output": snapshot.total_output_tokens,
+        "total": snapshot.total_tokens,
+    }
+
+
 _TRACKING_QUERY_PARAMETERS = {
     "_ga",
     "dclid",
@@ -538,6 +548,7 @@ class HorizonOrchestrator:
             language=language,
             now=datetime.now(timezone.utc),
             sources=configured_sources(self.config),
+            usage=_site_usage(),
         )
         latest, archive = write_payload(
             payload, Path(os.environ.get("HORIZON_SITE_DIR", "web"))

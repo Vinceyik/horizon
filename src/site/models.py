@@ -68,6 +68,7 @@ class SitePayload:
     groups: list[SiteGroup]
     failures: list[dict] = field(default_factory=list)
     sources: list[dict] = field(default_factory=list)
+    usage: dict = field(default_factory=dict)
 
     def to_dict(self) -> dict:
         return {
@@ -79,4 +80,5 @@ class SitePayload:
             "groups": [group.to_dict() for group in self.groups],
             "failures": list(self.failures),
             "sources": list(self.sources),
+            "usage": dict(self.usage),
         }

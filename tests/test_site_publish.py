@@ -128,6 +128,16 @@ def test_items_outside_configured_groups_are_not_published_or_counted():
     assert payload.selected == 1
 
 
+def test_payload_carries_usage():
+    payload = build_payload(
+        items=[], groups=[("fashion", "時尚與精品", ["fashion"])], overviews={},
+        failures=[], group_failed={}, total_fetched=0, language="zh-Hant",
+        now=datetime(2026, 11, 19, 0, 0, tzinfo=timezone.utc),
+        usage={"input": 100, "output": 40, "total": 140},
+    )
+    assert payload.to_dict()["usage"] == {"input": 100, "output": 40, "total": 140}
+
+
 def test_write_payload_creates_missing_directories(tmp_path: Path):
     payload = build_payload(
         items=[], groups=[("fashion", "時尚與精品", ["fashion"])], overviews={},
