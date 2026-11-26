@@ -1,78 +1,93 @@
 {
-  "generatedAt": "2026-11-26T20:55:38+08:00",
+  "generatedAt": "2026-11-26T21:03:51+08:00",
   "date": "2026-11-26",
   "language": "zh-Hant",
-  "totalFetched": 175,
+  "totalFetched": 176,
   "selected": 6,
   "groups": [
     {
       "id": "fashion",
       "name": "時尚與精品",
       "overview": "",
-      "status": "ok",
-      "note": null,
-      "items": [
-        {
-          "title": "Hodinkee《Talking Watches》：Brad Pitt 與 David Fincher 談《The Further Mis-Adventures of Cliff Booth》選錶",
-          "originalTitle": "Talking Watches: With Brad Pitt And David Fincher",
-          "url": "https://www.hodinkee.com/articles/with-brad-pitt-and-david-fincher",
-          "source": "Hodinkee",
-          "score": 7.0,
-          "blurb": "新一集由 Pitt 與 Fincher 拆解戲中選錶，供錶迷。",
-          "summary": "Hodinkee 播出《Talking Watches》新一集，嘉賓為 Brad Pitt、David Fincher 與 Cloister Watch Co. 的 Cooper Zelnick，主題是電影《The Further Mis-Adventures of Cliff Booth》的角色腕錶。焦點是一隻 Cloister Watch Co. 訂製的白金 Rolex Explorer 1016，配白色琺瑯錶盤，鏈帶每節加彈簧改成可伸縮的「stretch」版本。其他包括三隻 Jaeger-LeCoultre Memovox E873（一隻為塑料替身）、配 Gay Frères 鏈帶且錶鏡有裂痕的白金 Patek Philippe Calatrava Ref. 570，以及 Fincher 送給 Elizabeth Debicki 的 Cartier Tank Arrondie。選錶以 1977 年時代背景與角色合理性為準則，另有 Rolex GMT-Master II 1675/8、早期兩色 Audemars Piguet Royal Oak 5402 及 1952 年 Rolex Pre-Daytona Ref. 6034。電影 11 月 25 日於 IMAX 上映，12 月 23 日在 Netflix 上線；節目屬道具選錶拆解，並非新品發布或拍賣。",
-          "dataPoints": [
-            "IMAX 上映: 2026 年 11 月 25 日",
-            "Netflix 上線: 2026 年 12 月 23 日"
-          ],
-          "publishedAt": "2026-11-25T12:02:13Z"
-        }
-      ]
+      "status": "empty",
+      "note": "今日無新內容",
+      "items": []
     },
     {
       "id": "ai",
       "name": "AI 前沿",
-      "overview": "",
+      "overview": "今日最值得關注的是 Linux 核心 NFS 伺服器（nfsd）一個潛伏約十二年的漏洞 CVE-2026-99362，攻擊者毋須通過認證即可取得遠端 root 權限；社羣討論指影響範圍主要集中在 NFS 4.1 及 4.2 協定，而非全部",
       "status": "ok",
       "note": null,
       "items": [
         {
-          "title": "NVIDIA Nemotron 3.5 Parse 配套開放：三個訓練資料集、SFT+GRPO 配方與 DFlash2 推測解碼",
-          "originalTitle": "Building on Nemotron 3.5 Parse: Open Data, Fine-Tuning, and Faster Inference",
-          "url": "https://huggingface.co/blog/nvidia/building-on-nemotron-35-parse-open-data-fine-tunin",
-          "source": "Hugging Face Blog",
-          "score": 8.0,
-          "blurb": "Parse 3.5 開源三個資料集、微調配方與 DFlash2 加速，供文件解析開發者複用。",
-          "summary": "NVIDIA 在 Hugging Face 為 Nemotron 3.5 Parse 文件解析模型補上三項配套：三個開放訓練資料集、一套 SFT + RLVR（GRPO）微調配方，以及 DFlash2 推測解碼器。開放資料集為 Synthetic Charts V1（998 萬樣本）、Synthetic Tables V1（100 萬）與 OCR Synthetic Multilingual v2（790 萬），各附影像、標註、生成文件與訓練格式，可直接用於微調或衍生新變體。廠方以匹配評測設定比較 SFT 與 GRPO 開發檢查點：整體分數 66.24 → 71.38，表格 +5.18、圖表 +4.15，被重複偵測標記的頁面由 126 降至 29，觸及 9,000 token 上限的頁面由 185 降至 35。架構上改為 NaViT 動態矩形輸入、以壓縮視覺 token 作 causal prefix 取代 encoder–decoder cross-attention、解碼器改用 GQA-8（16 個 query head、8 個 key/value head）。廠方報稱單張 H200、BF16 原生單次通過下，DFlash2 在 concurrency 1 提升吞吐 7.62×，concurrency 512 時達 20.44 頁/秒（Parse 2.0 為 2.98 頁/秒），以上數字均為 NVIDIA 自行量測。",
-          "dataPoints": [
-            "開放資料集: Synthetic Charts V1 998 萬樣本、Synthetic Tables V1 100 萬、OCR Synthetic Multilingual v2 790 萬",
-            "整體分數: 66.24 → 71.38（同一評測設定下的 SFT 對 GRPO 開發檢查點，廠方數據）",
-            "表格分項: +5.18 分（GRPO 相對 SFT）",
-            "圖表分項: +4.15 分（GRPO 相對 SFT）",
-            "重複標記輸出: 126 頁 → 29 頁（約減 77%）",
-            "觸及 9,000 token 上限: 185 頁 → 35 頁",
-            "吞吐提升: concurrency 1 為 7.62×、concurrency 512 為 1.52×（相對關閉推測解碼的 Parse 3.5，單張 H200、BF16）",
-            "concurrency 512 吞吐: 20.44 頁/秒（無推測為 13.48，Parse 2.0 為 2.98）",
-            "相對 Parse 2.0: 6.86×（DFlash2）與 4.53×（無推測），均為 concurrency 512",
-            "多輪解析: 雙輪 +2.18、三輪 +2.46 ParseBench 分（相對單輪，廠方參考評測）",
-            "微調 pass@1: 0.00% → 95.85%（SFT）→ 96.58%（GRPO），256 份留出表格、每頁取樣 8 次",
-            "DFlash2 草稿: 最多前瞻 32 token，實測平均接受約 14 個，每次驗證約推進 15 個輸出 token",
-            "GQA-8 設定: 16 個 query head、8 個 key/value head（降低解碼器注意力快取記憶體）"
-          ],
-          "publishedAt": "2026-11-26T05:05:36Z"
-        },
-        {
-          "title": "NFS2ROOT：Linux 核心 NFS 伺服器被指存在 12 年的預認證遠端 root 漏洞（CVE-2026-99362）",
+          "title": "Linux 核心 nfsd 被揭 12 年前漏洞 CVE-2026-99362：未認證即可遠端 root",
           "originalTitle": "Nfs2root: A 12-year-old pre-auth remote root in the Linux kernel's NFS server",
           "url": "https://opensec.in/blog/nfs2root-cve-2026-99362",
           "source": "hackernews",
-          "score": 7.0,
-          "blurb": "NFS 伺服器藏 12 年遠端 root 漏洞，可停 4.1/4.2 暫緩",
-          "summary": "安全研究部落格 opensec.in 披露 Linux 核心 NFS 伺服器一個編號 CVE-2026-99362 的預認證（pre-auth）遠端 root 漏洞，文章標題稱其潛伏約 12 年。惟目前取得的摘要未附修補 commit、受影響核心版本範圍，亦無獨立重現或第三方確認，實際影響面仍有待覈實。社羣討論中，有使用者認為問題只涉及 NFS 4.1 及 4.2，並提出以 `echo \"-4.1 -4.2\" | sudo tee /proc/fs/nfsd/versions` 臨時停用這兩個次版本，此設定在重新開機後失效；該判斷屬個人推測而非官方公告。另有使用者表示其 NFSv4 伺服器置於 spiped 之後，並有人貼出以 XDP 為基礎的 L7 防火牆規則作為另一種緩解手段。上述均屬社羣意見，操作者應以發行版與上游核心的正式公告為準。",
+          "score": 8.0,
+          "blurb": "nfsd 舊漏洞免認證得 root，維運者須收窄 NFS 版本。",
+          "summary": "有研究文章披露 Linux 核心 NFS 伺服器（nfsd）一個潛伏約 12 年的漏洞，編號 CVE-2026-99362，攻擊者可在未通過認證的情況下取得遠端 root。受影響面在社羣討論中主要指向 NFS 4.1 及 4.2 協定，而非全部 NFS 版本；原始文章在現有資料中未提供完整修補細節或官方修補版本資訊，仍需向發行版確認。對維運 nfsd 的工程師而言，可即時做的是收窄協定版本：先停 nfsd，再將 \"-4.1 -4.2\" 寫入 /proc/fs/nfsd/versions，此設定重開機即失效，屬臨時緩解。另一方向是在網絡層過濾或加包裝層，例如以 spiped 轉發，或以可編程防火牆（含 XDP 方案）加入封鎖規則。社羣中亦有意見質疑 NFS 這類老協定是否應繼續留在覈心，但這屬觀點而非技術結論。",
           "dataPoints": [
-            "漏洞潛伏時間: 約 12 年（據文章標題所述，未經獨立確認）",
-            "討論提交日期: 2026-11-25"
+            "漏洞潛伏期: 約 12 年（由披露時回溯）",
+            "披露日期: 2026-11-25",
+            "受影響協定: NFS 4.1、4.2（社羣討論所指，非全部版本）"
           ],
           "publishedAt": "2026-11-25T20:35:50Z"
+        },
+        {
+          "title": "Minipg：把 PostgreSQL 打包成單一可執行檔",
+          "originalTitle": "Minipg: PostgreSQL as a Single Executable",
+          "url": "https://progrium.github.io/minipg/",
+          "source": "hackernews",
+          "score": 7.0,
+          "blurb": "單一執行檔打包 Postgres，讓本機開發省去 Docker 依賴。",
+          "summary": "Minipg 把 PostgreSQL 打包成一個單一可執行檔，並附帶生命週期管理，目標是讓開發者在沒有 Docker 的情況下於本機或小型自架環境跑 Postgres。據社羣討論，它透過 h9（一個年輕的嵌入式 hypervisor 工具）直接執行 Postgres 的 Alpine 映像，而非呼叫 Docker。指令會按需啟動一個共享的背景伺服器，並在閒置約一分鐘後自動關閉，這是社羣留言所述的預設行為。對建置者而言，可以用一條指令就取得真正的 Postgres，而不是 SQLite 或 PGLite 之類的替代品，之後再視需要把同一個資料庫搬去獨立伺服器。需要注意：來源頁面未提供內容，目前未見版本號、映像版本、支援平臺、效能數據或獨立評測，上述行為細節主要來自社羣描述。",
+          "dataPoints": [],
+          "publishedAt": "2026-11-26T03:00:48Z"
+        },
+        {
+          "title": "Hugging Face 與 ggml-org 推出 llama.cpp × AMD 效能基準儀錶板",
+          "originalTitle": "Introducing the llama.cpp benchmark dashboard for AMD Ryzen and Radeon",
+          "url": "https://huggingface.co/blog/ggml-org/llamacpp-amd-bench",
+          "source": "Hugging Face Blog",
+          "score": 7.0,
+          "blurb": "本地推論開發者可直接查閱 AMD 上 llama.cpp 各 build 的吞吐數據。",
+          "summary": "Hugging Face 同 ggml-org 公開咗 llama.cpp × AMD Benchmark 儀錶板，喺 Hugging Face 上可以按硬件、模型同 llama.cpp build 追蹤本機推論吞吐。暫時支援兩款硬件：Radeon 8060S（gfx1151）同 Radeon AI Pro R9700S（gfx1201）。儀錶板分三個頁：Overview 比較同一硬件／模型／build 下唔同量化；Build history 追蹤同一硬件／模型／量化跨 build 嘅變化；Context scaling 睇上下文變長時 TG 吞吐嘅走勢。量測方式公開：用 llama-install.sh 派發嘅預建 binary，配合 llama-bench，Flash Attention 開同關各跑，每個配置重複 10 次，gfx1151 同 gfx1201 嘅 workflow 每週排程執行。原始數據放喺公開嘅 ggml-org/install.sh-benches-data Storage Bucket，標準結果路徑為 <build>/<hardware>/<model>/<quant>.jsonl，workload sweep 則用 <quant>-tg.jsonl。 builder 而家可以自行下載數據重畫圖表，或者同自己部機嘅本地 run 對照；不過官方今次只係公開量測框架同數據檔，未有用文字公佈任何具體效能數字或新舊版本對比。",
+          "dataPoints": [
+            "硬件: Radeon 8060S（gfx1151）、Radeon AI Pro R9700S（gfx1201）",
+            "測試負載: PP512 處理 512 個輸入 token；TG128 生成 128 個 token（兩者均由 n_depth=0 開始）",
+            "量測指標: 平均吞吐 avg_ts，單位 tokens/sec",
+            "重複次數: 每個配置 10 次（Flash Attention 開與關各跑）",
+            "更新頻率: gfx1151 與 gfx1201 workflow 每週排程",
+            "已公佈效能分數: 無，只提供可下載的 .jsonl 數據檔"
+          ],
+          "publishedAt": "2026-11-26T11:37:17Z"
+        },
+        {
+          "title": "NVIDIA 公開 Nemotron 3.5 Parse 訓練數據集、SFT/RLVR 微調配方與 DFlash2 加速",
+          "originalTitle": "Building on Nemotron 3.5 Parse: Open Data, Fine-Tuning, and Faster Inference",
+          "url": "https://huggingface.co/blog/nvidia/building-on-nemotron-35-parse-open-data-fine-tunin",
+          "source": "Hugging Face Blog",
+          "score": 7.0,
+          "blurb": "三個合成數據集加 SFT/RLVR 配方，開發者可自建文件解析模型",
+          "summary": "NVIDIA 與 Hugging Face 為 Nemotron 3.5 Parse（將頁面影像轉成結構化輸出的緊湊型文件模型）補上三項配套：開放訓練數據集、微調配方，以及 DFlash2 投機解碼加速器。開放的是 Synthetic Charts V1（9.98M 範例）、Synthetic Tables V1（1M）與 OCR Synthetic Multilingual v2（7.9M），每份附影像、標註、生成文件與訓練格式，可直接用來微調或生成針對特定文件類型／語言的變體。訓練分兩段：先以 SFT 學版面、表格、圖表與多語文件，再用 GRPO 的 RLVR 以可驗證獎勵（正確系列與數值、可用結構、不重複生成）改善一致性；配方走 NeMo Automodel SFT、NeMo RL GRPO，並用 vLLM 產生候選答案。架構由固定 2048×1664 畫布與 encoder-decoder cross-attention，改為 NaViT 動態矩形輸入、壓縮視覺 token 作因果前綴、GQA-8（16 個 query head、8 個 KV head），並可外掛 DFlash2 草稿模型一次提議最多 32 個 token。NVIDIA 自行量測（單張 H200、BF16、2,078 頁）指 DFlash2 於並發 1 時吞吐為關閉投機解碼 Parse 3.5 的 7.62×、並發 512 時 1.52×，目前未見獨立重現。",
+          "dataPoints": [
+            "Synthetic Charts V1: 9.98M 個範例（開放數據集）",
+            "Synthetic Tables V1: 1M 個範例（開放數據集）",
+            "OCR Synthetic Multilingual v2: 7.9M 個範例（開放數據集）",
+            "DFlash2 草稿長度: 最多 32 個 token，平均約 14 個被接受，每次驗證約前進 15 個輸出 token",
+            "吞吐提升: 並發 1 為 7.62×、並發 512 為 1.52×（對比關閉投機解碼的 Parse 3.5）",
+            "並發 512 吞吐: 20.44 頁/秒（DFlash2）、13.48 頁/秒（無投機解碼）、2.98 頁/秒（Parse 2.0）",
+            "對 Parse 2.0 倍數: 4.53×（無投機解碼）、6.86×（DFlash2）",
+            "基準環境: 單張 H200、BF16、2,078 頁（Parse 2.0 單次、Parse 3.5 三次中位數）",
+            "GRPO 對比: 被標記迴圈的頁數由 126 降至 29（約少 77%）",
+            "GRPO 對比: 觸及 9,000 token 上限的輸出由 185 降至 35",
+            "內部評分: 66.24 → 71.38（表格 +5.18、圖表 +4.15，開發檢查點）",
+            "牙科表單 pass@1: 0.00% → 95.85%（SFT 後）→ 96.58%（加 RLVR），256 份留出表單、每頁 8 次取樣",
+            "多次掃描增益: 兩次掃描 +2.18、三次掃描 +2.46 ParseBench 分（對比單次掃描）"
+          ],
+          "publishedAt": "2026-11-26T05:05:36Z"
         }
       ]
     },
@@ -84,48 +99,34 @@
       "note": null,
       "items": [
         {
-          "title": "美國 LNG 原料氣提名量迫近 21.5 Bcf/d，略高於 11 月 15 日 21.2 紀錄",
+          "title": "美國 LNG 進料氣提名估算 21.5 Bcf/d，略高於前紀錄 21.2",
           "originalTitle": "US LNG Feedgas Tests New High Near 21.5 Bcf/d as Intraday Cuts Cloud Picture",
           "url": "https://naturalgasintel.com/news/us-lng-feedgas-tests-new-high-near-215-bcfd-as-intraday-cuts-cloud-picture/",
           "source": "Natural Gas Intelligence",
           "score": 8.0,
-          "blurb": "LNG 原料氣提名 21.5 Bcf/d，較前紀錄高 0.3",
-          "summary": "美國 LNG 原料氣提名量估算為 21.5 Bcf/d（週三氣日），較 11 月 15 日創下的 21.2 Bcf/d 舊紀錄高 0.3 Bcf/d，數據來自 NGI Entropic Analytics。此為提名估算值，並非實際交付量。來源指出日內出現削減，令讀數所反映的整體情況不明朗。來源未提供同比、五年均值或市場預期比較，亦未說明天氣、產量或管道維護等驅動因素。",
+          "blurb": "LNG 進料氣 21.5 Bcf/d，較前紀錄高 0.3",
+          "summary": "美國 LNG 進料氣提名估算為 21.5 Bcf/d（週三天然氣日），較 11 月 15 日創下的前紀錄 21.2 Bcf/d 高 0.3 Bcf/d，數據來自 NGI Entropic Analytics。上述數字為估算值。報道標題同時提及日內削減令讀數不明朗，惟來源未提供削減量或受影響終端細節。",
           "dataPoints": [
-            "LNG 原料氣提名量: 21.5 Bcf/d（週三氣日，NGI Entropic Analytics 估算）",
-            "前紀錄: 21.2 Bcf/d（2026 年 11 月 15 日）",
-            "較前紀錄變動: +0.3 Bcf/d",
-            "數據性質: 提名估算值，非實際交付量；日內出現削減"
+            "美國 LNG 進料氣提名: 21.5 Bcf/d（週三天然氣日；前紀錄 21.2，11 月 15 日）",
+            "較前紀錄: +0.3 Bcf/d"
           ],
           "publishedAt": "2026-11-25T18:37:00Z"
         },
         {
-          "title": "EIA：天然氣庫存錄本季首次淨提取 24 BCF",
+          "title": "EIA：天然氣庫存淨提取 24 BCF，為本季首次提取",
           "originalTitle": "Natural Gas Market Serves Up First Storage Withdrawal of Season Before Thanksgiving Break",
           "url": "https://naturalgasintel.com/news/natural-gas-market-serves-up-first-storage-withdrawal-of-season-before-thanksgiving-break/",
           "source": "Natural Gas Intelligence",
           "score": 7.0,
-          "blurb": "庫存淨提取 24 BCF，本季首次，比較基準未明",
-          "summary": "EIA 週三公佈，截至 11 月 20 日當週美國地下儲氣庫淨提取 24 BCF，為本季首次提取。該數字明確為 EIA 實際統計，並非市場預估值。來源原文在「matching the …」處截斷，因此對比基準（市場預期、前一週或五年均值）無法確認，暫不列示。原文亦未提供天氣、產量、LNG 進料氣或管道檢修等成因說明，故不就驅動因素作推論。",
+          "blurb": "EIA：天然氣庫存淨減 24 BCF，比較基準未載",
+          "summary": "EIA 於週三公佈，截至 11 月 20 日當週，美國地下天然氣庫存淨提取 24 BCF，為本季首次提取。原文稱該讀數「符合」（matching the …）某項比較，但文本在該處截斷，具體比較基準（市場預期或前期估值）未完整披露，故無法確認較預期或前值之差。價格與供需機制方面，原文可見內容未提供相關說明，亦未提及天氣、產量、LNG 進料或管道維護等因素。提取量本身屬季節性常規水平，來源摘要亦如此界定，並非改變平衡的事件。",
           "dataPoints": [
-            "庫存變動: -24 BCF（本季首次提取；對比基準未披露）",
-            "統計週次: 截至 11 月 20 日當週",
-            "公佈機構: 美國能源資訊署（EIA），週三公佈"
+            "庫存變動: -24 BCF（截至 11 月 20 日當週，淨提取）",
+            "比較基準: 未披露（原文截斷於「matching the …」）",
+            "數據來源: EIA（經 Natural Gas Intelligence 報道）",
+            "季節性意義: 本季首次庫存提取"
           ],
           "publishedAt": "2026-11-25T17:41:00Z"
-        },
-        {
-          "title": "Transco 東南擴建早期 50 萬 Dth/d 容量全數認購",
-          "originalTitle": "Transco Fills Early Southeast Natural Gas Capacity as Price Spreads Stay Wide",
-          "url": "https://naturalgasintel.com/news/transco-fills-early-southeast-natural-gas-capacity-as-price-spreads-stay-wide/",
-          "source": "Natural Gas Intelligence",
-          "score": 6.0,
-          "blurb": "Transco 東南早期容量 50 萬 Dth/d 全數認購",
-          "summary": "Transco 已為 Southeast Supply Enhancement（SSE）項目 50 萬 Dth/d（0.5 Bcf/d）的早期服務容量全數找到託運方，認購率達 100%。來源未披露項目總容量或先前利用率，因此無法比較認購增幅。錨定託運方的預留費用與區域天然氣價差的一個比例掛鈎，但報道未給出價差數值。來源亦未提及投產時間，暫屬營運層面事實，而非供需平衡的改變。",
-          "dataPoints": [
-            "早期服務容量: 500,000 Dth/d（0.5 Bcf/d，全數認購）"
-          ],
-          "publishedAt": "2026-11-25T19:45:00Z"
         }
       ]
     }
