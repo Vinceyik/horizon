@@ -1,7 +1,7 @@
 ﻿from datetime import datetime, timezone
 
-from src.site.publish import (build_payload, group_failure_map, profile_to_group_map,
-                              site_groups)
+from src.site.publish import (build_payload, configured_sources, group_failure_map,
+                              profile_to_group_map, site_groups)
 
 
 class FakeGroup:
@@ -17,10 +17,11 @@ class FakeDigest:
 
 
 class FakeFeed:
-    def __init__(self, name, profile, enabled=True):
+    def __init__(self, name, profile, enabled=True, url="https://example.com/feed"):
         self.name = name
         self.profile = profile
         self.enabled = enabled
+        self.url = url
 
 
 class FakeScraperSource:
@@ -89,6 +90,16 @@ def test_group_failure_map_counts_hacker_news_and_github():
     )
     assert group_failure_map(config, set(), {"Hacker News"}) == {}
     assert group_failure_map(config, set(), {"Hacker News", "GitHub"}) == {"ai": True}
+
+
+def test_payload_carries_configured_sources():
+    config = FakeConfig(three_groups(), rss=[
+        FakeFeed("Hodinkee", "fashion"),
+        FakeFeed("Hacker News", "ai-news"),
+    ])
+    sources = configured_sources(config)
+    assert {"group": "fashion", "name": "Hodinkee", "url": "https://example.com/feed"} in sources
+    assert all(entry["group"] in {"fashion", "ai", "natgas"} for entry in sources)
 
 
 def test_empty_run_still_publishes_three_groups():

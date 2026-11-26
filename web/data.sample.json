@@ -76,6 +76,12 @@
       "items": []
     }
   ],
+  "sources": [
+    {"group": "fashion", "name": "Hodinkee", "url": "https://www.hodinkee.com/articles.rss"},
+    {"group": "fashion", "name": "Hypebeast", "url": "https://hypebeast.com/feed"},
+    {"group": "ai", "name": "OpenAI Blog", "url": "https://openai.com/blog/rss.xml"},
+    {"group": "natgas", "name": "EIA Today in Energy", "url": "https://www.eia.gov/rss/todayinenergy.xml"}
+  ],
   "failures": [
     {
       "source": "Natural Gas Intelligence",

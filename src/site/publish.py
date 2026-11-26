@@ -128,6 +128,7 @@ def build_payload(
     total_fetched: int,
     language: str,
     now: datetime,
+    sources: Optional[list[dict]] = None,
 ) -> SitePayload:
     """Assemble the payload, always emitting every configured group."""
     buckets = group_items(items, groups)
@@ -164,6 +165,7 @@ def build_payload(
         selected=sum(len(group.items) for group in site_groups),
         groups=site_groups,
         failures=list(failures or []),
+        sources=list(sources or []),
     )
 
 
@@ -257,6 +259,36 @@ def group_failure_map(config, failed_feeds=(), failed_scrapers=()) -> dict[str, 
         if all_failed:
             result[group_id] = True
     return result
+
+
+def configured_sources(config) -> list[dict]:
+    """Flatten the enabled sources into group-labelled entries for the page."""
+    profile_to_group = profile_to_group_map(config)
+    entries: list[dict] = []
+    for feed in getattr(config.sources, "rss", None) or []:
+        profile = getattr(feed, "profile", None)
+        if not feed.enabled or not isinstance(profile, str):
+            continue
+        group_id = profile_to_group.get(profile)
+        if group_id:
+            entries.append({"group": group_id, "name": feed.name, "url": str(feed.url)})
+    hackernews = getattr(config.sources, "hackernews", None)
+    if hackernews is not None and getattr(hackernews, "enabled", False):
+        profile = getattr(hackernews, "profile", None)
+        group_id = profile_to_group.get(profile) if isinstance(profile, str) else None
+        if group_id:
+            entries.append(
+                {"group": group_id, "name": "Hacker News", "url": "https://news.ycombinator.com"}
+            )
+    for source in getattr(config.sources, "github", None) or []:
+        profile = getattr(source, "profile", None)
+        if not getattr(source, "enabled", False) or not isinstance(profile, str):
+            continue
+        group_id = profile_to_group.get(profile)
+        if group_id:
+            name = getattr(source, "repo", None) or getattr(source, "username", None) or "GitHub"
+            entries.append({"group": group_id, "name": str(name), "url": "https://github.com"})
+    return entries
 
 
 def write_payload(payload: SitePayload, web_dir: Path) -> tuple[Path, Path]:

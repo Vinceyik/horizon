@@ -40,8 +40,8 @@ from .processing import ProfileRegistry
 from .processing.content import COMMENTS_MARKER, split_content
 from .processing.tools import ToolRegistry
 from .site.overview import generate_group_overviews
-from .site.publish import (build_payload, group_failure_map, group_items,
-                           site_groups, write_payload)
+from .site.publish import (build_payload, configured_sources, group_failure_map,
+                           group_items, site_groups, write_payload)
 
 
 _TRACKING_QUERY_PARAMETERS = {
@@ -537,6 +537,7 @@ class HorizonOrchestrator:
             total_fetched=total_fetched,
             language=language,
             now=datetime.now(timezone.utc),
+            sources=configured_sources(self.config),
         )
         latest, archive = write_payload(
             payload, Path(os.environ.get("HORIZON_SITE_DIR", "web"))

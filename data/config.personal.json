@@ -18,7 +18,7 @@
     "default_profile": "ai-news",
     "profile_settings": {
       "fashion": {
-        "threshold": 6.5,
+        "threshold": 5.0,
         "topic_dedup": true
       },
       "ai-news": {
