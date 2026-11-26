@@ -1,6 +1,7 @@
-import pytest
+﻿import json
 
-from src.ai.client import OpenAIClient, _is_response_format_unsupported
+from src.ai.client import (OpenAIClient, _is_response_format_unsupported,
+                           _unwrap_gateway_envelope)
 from src.models import AIConfig
 
 
@@ -34,3 +35,20 @@ def test_response_format_rejection_is_detected():
     assert _is_response_format_unsupported("response_format is not supported")
     assert _is_response_format_unsupported("Invalid parameter: json_object")
     assert not _is_response_format_unsupported("temperature is not supported")
+
+
+def test_messages_envelope_is_unwrapped():
+    raw = json.dumps({
+        "messages": [
+            {"role": "user", "content": "ignored"},
+            {"role": "assistant", "content": "庫存降至 3,850 BCF。"},
+        ]
+    })
+    assert _unwrap_gateway_envelope(raw) == "庫存降至 3,850 BCF。"
+
+
+def test_plain_text_and_other_json_are_left_alone():
+    assert _unwrap_gateway_envelope("庫存降至 3,850 BCF。") == "庫存降至 3,850 BCF。"
+    payload = '{"score": 8, "reason": "ok"}'
+    assert _unwrap_gateway_envelope(payload) == payload
+    assert _unwrap_gateway_envelope("") == ""

@@ -73,6 +73,14 @@ def test_prompt_forbids_simplified_chinese():
     assert "Traditional Chinese" in system + user
 
 
+def test_json_looking_reply_is_dropped():
+    client = FakeClient(reply='{"messages": [{"role": "assistant"}]}')
+    result = run(generate_group_overviews(
+        client, [("fashion", "時尚與精品", [make_item()])], "zh-Hant"
+    ))
+    assert result["fashion"] == ""
+
+
 def test_throttle_sleeps_between_calls_only(monkeypatch):
     sleeps = []
 

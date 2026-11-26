@@ -1,5 +1,6 @@
 """AI client abstraction supporting multiple providers."""
 
+import json
 import os
 import re
 import uuid
@@ -113,6 +114,32 @@ def _is_temperature_unsupported(message: str) -> bool:
         # Anthropic: "temperature: Extra inputs are not permitted"
         or "extra inputs are not permitted" in lowered
     )
+
+
+def _unwrap_gateway_envelope(content: Optional[str]) -> str:
+    """Unwrap a gateway that returns a messages envelope as the content."""
+    if not content:
+        return content or ""
+    text = content.strip()
+    if not text.startswith("{"):
+        return content
+    try:
+        data = json.loads(text)
+    except (ValueError, TypeError):
+        return content
+    if not isinstance(data, dict):
+        return content
+    messages = data.get("messages")
+    if not isinstance(messages, list):
+        return content
+    parts = [
+        message["content"]
+        for message in messages
+        if isinstance(message, dict)
+        and message.get("role") == "assistant"
+        and isinstance(message.get("content"), str)
+    ]
+    return "\n".join(parts) if parts else content
 
 
 def _is_response_format_unsupported(message: str) -> bool:
@@ -389,7 +416,7 @@ class OpenAIClient(AIClient):
                 input_tokens=getattr(usage, "prompt_tokens", 0),
                 output_tokens=getattr(usage, "completion_tokens", 0),
             )
-        return response.choices[0].message.content
+        return _unwrap_gateway_envelope(response.choices[0].message.content)
 
     async def _do_request(
         self,

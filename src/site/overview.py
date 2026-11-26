@@ -54,6 +54,8 @@ def _build_user_prompt(name: str, items: list[ContentItem], language: str) -> st
 
 def _trim(text: str) -> str:
     text = text.strip()
+    if not text or text[0] in "{[<":
+        return ""
     if len(text) <= MAX_OVERVIEW_CHARS:
         return text
     window = text[:MAX_OVERVIEW_CHARS]
