@@ -1,0 +1,34 @@
+{
+  "generatedAt": "2026-11-26T20:12:56+08:00",
+  "date": "2026-11-26",
+  "language": "zh-Hant",
+  "totalFetched": 181,
+  "selected": 0,
+  "groups": [
+    {
+      "id": "fashion",
+      "name": "時尚與精品",
+      "overview": "",
+      "status": "empty",
+      "note": "今日無新內容",
+      "items": []
+    },
+    {
+      "id": "ai",
+      "name": "AI 前沿",
+      "overview": "",
+      "status": "empty",
+      "note": "今日無新內容",
+      "items": []
+    },
+    {
+      "id": "natgas",
+      "name": "天然氣數據",
+      "overview": "",
+      "status": "empty",
+      "note": "今日無新內容",
+      "items": []
+    }
+  ],
+  "failures": []
+}

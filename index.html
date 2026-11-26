@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>每日簡報</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="title-row">
+      <h1>每日簡報</h1>
+      <button id="theme-toggle" class="theme-toggle" type="button" aria-label="切換深色模式">🌙</button>
+    </div>
+    <p class="meta">
+      <span id="last-updated">載入中…</span>
+      <span id="counts" class="muted"></span>
+    </p>
+    <div class="date-row" id="date-row" hidden>
+      <label for="date-select" class="muted">日期</label>
+      <select id="date-select"></select>
+    </div>
+  </header>
+
+  <nav id="tabs" class="tabs" role="tablist" aria-label="分類"></nav>
+  <main id="panels"></main>
+  <p id="status" class="status" role="status"></p>
+
+  <script src="assets/app.js" defer></script>
+</body>
+</html>
