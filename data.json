@@ -1,33 +1,130 @@
 {
-  "generatedAt": "2026-11-26T20:12:56+08:00",
+  "generatedAt": "2026-11-26T20:29:56+08:00",
   "date": "2026-11-26",
   "language": "zh-Hant",
-  "totalFetched": 181,
-  "selected": 0,
+  "totalFetched": 178,
+  "selected": 5,
   "groups": [
     {
       "id": "fashion",
       "name": "時尚與精品",
       "overview": "",
-      "status": "empty",
-      "note": "今日無新內容",
-      "items": []
+      "status": "ok",
+      "note": null,
+      "items": [
+        {
+          "title": "Hodinkee《Talking Watches》由 Brad Pitt 與 David Fincher 講解《The Further Mis-Adventures of Cliff Booth》戲中腕錶",
+          "originalTitle": "Talking Watches: With Brad Pitt And David Fincher",
+          "url": "https://www.hodinkee.com/articles/with-brad-pitt-and-david-fincher",
+          "source": "Hodinkee",
+          "score": 7.0,
+          "blurb": "戲中七款腕錶的選型與訂製過程，由挑錶三人親自解說。",
+          "summary": "Hodinkee 新一集《Talking Watches》請來 Brad Pitt、導演 David Fincher，以及 Cloister Watch Co. 的 Cooper Zelnick，逐隻講解《The Further Mis-Adventures of Cliff Booth》戲中腕錶的選型準則，兼顧 1977 年的歷史準確度與角色是否合理。最受注目的是 Cloister 為 Pitt 訂製的白金 Rolex Explorer 1016：白色琺瑯錶盤，錶鏈經改裝、每格加入彈簧做成 stretch 版本，錶底刻字呼應《Once Upon A Time in Hollywood》第三幕。Cliff Booth 佩戴的 Jaeger-LeCoultre Memovox E873 前後共三隻：兩隻真錶分別用於拍攝前後半段，第三隻是道具組製的塑料替身，供打鬥場面使用。其餘角色佩戴 Patek Philippe Calatrava Ref. 570（配 Gay Frères 鏈帶、錶鏡有裂痕）、Cartier Tank Arrondie（Fincher 借出，其後贈予 Elizabeth Debicki）、Rolex GMT-Master II 1675/8 及早期 Audemars Piguet Royal Oak 5402。電影 11 月 25 日於 IMAX 上映，12 月 23 日於 Netflix 上線；文章未提供任何腕錶價格或機芯規格。",
+          "dataPoints": [
+            "IMAX 上映: 2026 年 11 月 25 日",
+            "Netflix 上線: 12 月 23 日",
+            "故事時間設定: 1977 年（前作之後約 8 年）",
+            "Memovox E873 用錶數量: 3 隻（2 隻真錶、1 隻塑料道具替身）",
+            "Rolex Pre-Daytona Ref. 6034: 1952 年",
+            "文章列出錶款: 7 款（Explorer 1016、Memovox E873、Calatrava 570、Tank Arrondie、GMT-Master II 1675/8、Royal Oak 5402、Pre-Daytona 6034）"
+          ],
+          "publishedAt": "2026-11-25T12:02:13Z"
+        }
+      ]
     },
     {
       "id": "ai",
       "name": "AI 前沿",
       "overview": "",
-      "status": "empty",
-      "note": "今日無新內容",
-      "items": []
+      "status": "ok",
+      "note": null,
+      "items": [
+        {
+          "title": "Nemotron 3.5 Parse 擴充：開源合成數據集、SFT+RLVR 微調配方與 DFlash2 加速推論",
+          "originalTitle": "Building on Nemotron 3.5 Parse: Open Data, Fine-Tuning, and Faster Inference",
+          "url": "https://huggingface.co/blog/nvidia/building-on-nemotron-35-parse-open-data-fine-tunin",
+          "source": "Hugging Face Blog",
+          "score": 8.0,
+          "blurb": "開源 Parse 3.5 三個數據集與微調配方，加快推論",
+          "summary": "NVIDIA 為文件解析模型 Nemotron 3.5 Parse 釋出三個訓練用合成數據集：Synthetic Charts V1（998 萬範例）、Synthetic Tables V1（100 萬範例）與 OCR Synthetic Multilingual v2（790 萬範例），每套附圖像、標註、生成文件與訓練格式，可直接用於微調或產生針對特定文件類型與語言的新變體。同時公開 SFT 加 RLVR（GRPO）的微調配方：以 NeMo Automodel 做監督微調、NeMo RL 做 GRPO、vLLM 生成候選答案，開發者可換上自家圖像／標註配對與驗證器（文字保真、邊界框、表格、圖表數值、完成度）。推論端改為 NaViT 動態矩形輸入、把壓縮視覺 token 當因果前綴、解碼器用 GQA-8，並加上 DFlash2 推測解碼草稿模型（最多前推 32 token）。NVIDIA 自報在單張 H200、BF16 的原生單次推論基準上，DFlash2 相對關閉推測解碼的 Parse 3.5 提升 7.62 倍（併發 1）與 1.52 倍（併發 512，20.44 對 13.48 頁/秒），Parse 2.0 為 2.98 頁/秒；上述數字未經獨立驗證。應用層面新增多輪掃描選項：雙掃描與三掃描分別較單次掃描多 2.18 與 2.46 ParseBench 分，讓開發者以吞吐換取疑難區域的準確度。",
+          "dataPoints": [
+            "合成數據集: Synthetic Charts V1 998 萬、Synthetic Tables V1 100 萬、OCR Synthetic Multilingual v2 790 萬範例（全部開源）",
+            "整體分數: 66.24 → 71.38（GRPO 對比 SFT，同一評測設定的開發檢查點，NVIDIA 自報）",
+            "表格分項: +5.18 分（GRPO 相對 SFT）",
+            "圖表分項: +4.15 分（GRPO 相對 SFT）",
+            "迴圈輸出: 126 頁 → 29 頁（約減 77%，GRPO 相對 SFT）",
+            "達 9,000 token 上限: 185 頁 → 35 頁（GRPO 相對 SFT）",
+            "吞吐（併發 1）: 7.62 倍（DFlash2 對比關閉推測解碼的 Parse 3.5，單張 H200 BF16）",
+            "吞吐（併發 512）: 20.44 頁/秒 對 13.48 頁/秒（DFlash2 對比關閉推測解碼；Parse 2.0 為 2.98 頁/秒，即 6.86 倍與 4.53 倍）",
+            "多次掃描增益: 雙掃描 +2.18、三掃描 +2.46 ParseBench 分（對比單次掃描）",
+            "DFlash2 草稿: 最多前推 32 token，平均約 14 個被接受（每次驗證約 15 個輸出 token）",
+            "牙科表單 pass@1: 0.00% → 95.85%（SFT）→ 96.58%（RLVR），256 份留出表單、每頁 8 次取樣"
+          ],
+          "publishedAt": "2026-11-26T05:05:36Z"
+        }
+      ]
     },
     {
       "id": "natgas",
       "name": "天然氣數據",
-      "overview": "",
-      "status": "empty",
-      "note": "今日無新內容",
-      "items": []
+      "overview": "{\"messages\":[{\"role\":\"assistant\",\"content\":\"美國 LNG 進料氣提名升至 21.5 Bcf/d，略高於 11 月 15 日 21.2 Bcf/d 的舊紀錄，屬邊際性",
+      "status": "ok",
+      "note": null,
+      "items": [
+        {
+          "title": "美國 LNG 進料氣提名升至 21.5 Bcf/d，略高於 11 月 15 日的 21.2 Bcf/d 紀錄",
+          "originalTitle": "US LNG Feedgas Tests New High Near 21.5 Bcf/d as Intraday Cuts Cloud Picture",
+          "url": "https://naturalgasintel.com/news/us-lng-feedgas-tests-new-high-near-215-bcfd-as-intraday-cuts-cloud-picture/",
+          "source": "Natural Gas Intelligence",
+          "score": 8.0,
+          "blurb": "LNG 進料氣 21.5 Bcf/d，較前紀錄高 0.3",
+          "summary": "美國 LNG 進料氣提名量於週三氣日估算為 21.5 Bcf/d，略高於 11 月 15 日創下的前紀錄 21.2 Bcf/d，高出 0.3 Bcf/d；數據來自 NGI 旗下 Entropic Analytics。這是該序列的新高，但突破幅度僅 0.3 Bcf/d，屬邊際性刷新。上述數字是提名量估算，並非實際收氣量；報道指日內調整令情況難以看清，最終數值存在被修訂的可能。來源未提供同比、五年均值或分終端明細，亦未給出驅動因素（氣溫、管道檢修或出口）的解釋。",
+          "dataPoints": [
+            "美國 LNG 進料氣提名量: 21.5 Bcf/d（週三氣日估算）",
+            "前紀錄: 21.2 Bcf/d（11 月 15 日）",
+            "與前紀錄差距: +0.3 Bcf/d",
+            "數據性質: 提名量估算（非實際收氣量，日內可能修訂）",
+            "數據來源: NGI Entropic Analytics"
+          ],
+          "publishedAt": "2026-11-25T18:37:00Z"
+        },
+        {
+          "title": "美國鑽機總數持平 607 部，原油產量 14.065 百萬桶/日連續五週創新高",
+          "originalTitle": "U.S. Rig Count Holds Steady as Oil Production Hits Fifth Straight Record",
+          "url": "https://oilprice.com/Energy/Crude-Oil/US-Rig-Count-Holds-Steady-as-Oil-Production-Hits-Fifth-Straight-Record.html",
+          "source": "OilPrice.com",
+          "score": 7.0,
+          "blurb": "鑽機數持平 607 部，產量 14.065 百萬桶/日連五週破頂",
+          "summary": "Baker Hughes 週三（11 月 25 日）公佈數據顯示，美國鑽機總數本週持平於 607 部，較去年同期多 63 部；油鑽機增 1 部至 470 部（按年 +63），氣鑽機減 1 部（按年 -3），雜項鑽機維持 10 部。EIA 數據顯示，截至 11 月 20 日當週美國原油產量升至 14.065 百萬桶/日，高於前一週的 14.032 百萬桶/日，按年增 251,000 桶/日，為連續第五週創紀錄。二疊紀盆地鑽機數持平於 277 部（按年 +26），Eagle Ford 持平於 50 部（按年 +11）。Primary Vision 壓裂井隊數於截至 11 月 20 日當週回升 3 隊至 194 隊，收回上週流失 4 隊中的 3 隊，按年多 15 隊。價格方面，數據公佈前布蘭特報 94.28 美元/桶（+3.15%），WTI 報 83.89 美元/桶（+2.28%）。",
+          "dataPoints": [
+            "鑽機總數: 607 部（週環比持平，按年 +63）",
+            "油鑽機: 470 部（週環比 +1，按年 +63）",
+            "氣鑽機: 週環比 -1（按年 -3）",
+            "雜項鑽機: 10 部（持平）",
+            "二疊紀盆地: 277 部（持平，按年 +26）",
+            "Eagle Ford: 50 部（持平，按年 +11）",
+            "美國原油產量: 14.065 百萬桶/日（前一週 14.032，按年 +251,000 桶/日）",
+            "壓裂井隊數: 194 隊（週環比 +3，按年 +15）",
+            "布蘭特: 94.28 美元/桶（+3.15%）",
+            "WTI: 83.89 美元/桶（+2.28%）"
+          ],
+          "publishedAt": "2026-11-25T21:06:52Z"
+        },
+        {
+          "title": "EIA：11月20日止當週天然氣庫存淨提取 24 Bcf，為本季首次",
+          "originalTitle": "Natural Gas Market Serves Up First Storage Withdrawal of Season Before Thanksgiving Break",
+          "url": "https://naturalgasintel.com/news/natural-gas-market-serves-up-first-storage-withdrawal-of-season-before-thanksgiving-break/",
+          "source": "Natural Gas Intelligence",
+          "score": 6.0,
+          "blurb": "EIA 報 24 Bcf 淨提取，本季首次。",
+          "summary": "美國能源資訊署（EIA）週三公佈，截至11月20日止當週，地下儲氣庫天然氣淨提取 24 Bcf，為本季首次提取。此為 EIA 實際數據，非市場估算或預測。原文摘錄在對照處截斷（「matching the …」），未提供市場預期、去年同期或五年均值等基準，因此無法量化 24 Bcf 相對偏離幅度。原文亦未交代氣溫、產量、液化天然氣原料氣或管道檢修等驅動機制，僅以「本季首次提取」定調由注入季轉入提取季。",
+          "dataPoints": [
+            "庫存變動: -24 Bcf（2026年11月20日止當週，淨提取，EIA 實際數據）",
+            "季節性: 本季首次提取（比較基準未提供）"
+          ],
+          "publishedAt": "2026-11-25T17:41:00Z"
+        }
+      ]
     }
   ],
   "failures": []
