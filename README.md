@@ -4,7 +4,7 @@ A fork of [Thysrael/Horizon](https://github.com/Thysrael/Horizon) (MIT) configur
 
 **Live:** https://vinceyik.github.io/horizon/
 
-Three tabs, Traditional Chinese, one run per day at ~08:00 Hong Kong time:
+Three tabs, Traditional Chinese, one run per morning at roughly 08:00–14:00 Hong Kong time.
 
 | Tab | Covers | Sources |
 |---|---|---|

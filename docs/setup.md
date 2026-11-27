@@ -73,7 +73,7 @@ The published files land in `web/` by default. Set `HORIZON_SITE_DIR` to write t
 
 ## 6. Caveats
 
-- **Scheduling is approximate.** The cron is `0 0 * * *` (08:00 HKT), but GitHub can start a scheduled job 5–30 minutes late. The 26-hour lookback absorbs the drift.
+- **Scheduling is approximate.** The cron is `0 22 * * *` (06:00 HKT). This repo's scheduled runs have started 5–8 hours late, so expect the briefing between 08:00 and 14:00 Hong Kong time. Use **Run workflow** when you want it now.
 - **Free tier.** Actions minutes and Pages are free on a public repo. The LLM is not: the daily run makes roughly 20–40 scoring calls, up to 18 enrichment calls, and 3 summary calls. Keep `max_items` low if you use a metered key.
 - **X / Twitter is off.** Nitter public instances return 410 and RSSHub's public Twitter route is unreliable, so the config uses Apify instead, disabled by default.
 - **No backfill.** Each run writes one archive file for its own date. Re-running does not fill past days.

@@ -2,9 +2,10 @@ name: Daily Briefing
 
 on:
   schedule:
-    # 08:00 Asia/Hong_Kong (UTC+8). GitHub schedules are best-effort and may
-    # start 5-30 minutes late; the 26-hour lookback absorbs the drift.
-    - cron: '0 0 * * *'
+    # 06:00 Asia/Hong_Kong (22:00 UTC). GitHub schedules are best-effort and
+    # this repo has seen 5-8 hour delays, so the goal is a morning briefing
+    # rather than an exact hour. Trigger manually when you need it now.
+    - cron: '0 22 * * *'
   workflow_dispatch:
     inputs:
       hours:

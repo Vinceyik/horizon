@@ -3,9 +3,9 @@ from pathlib import Path
 WORKFLOW = Path(".github/workflows/daily_update.yml")
 
 
-def test_daily_workflow_runs_at_hong_kong_8am():
+def test_daily_workflow_runs_before_hong_kong_morning():
     text = WORKFLOW.read_text(encoding="utf-8")
-    assert "cron: '0 0 * * *'" in text
+    assert "cron: '0 22 * * *'" in text
     assert "workflow_dispatch" in text
 
 
